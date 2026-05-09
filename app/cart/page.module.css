@@ -1,0 +1,168 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.emptyCart {
+  font-size: 1.25rem;
+  text-align: center;
+  padding: 3rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+.emptyCart a {
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cartLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .cartLayout {
+    flex-direction: row;
+  }
+}
+
+.cartItems {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.itemDetails {
+  flex: 1;
+}
+
+.itemName {
+  font-size: 1.25rem;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.itemPrice {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.qtySelector {
+  display: flex;
+  align-items: center;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.qtyBtn {
+  background: none;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.2s;
+}
+
+.qtyBtn:hover:not(:disabled) {
+  background-color: #f0f0f0;
+}
+
+.qtyBtn:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.qtyValue {
+  padding: 0 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  min-width: 30px;
+  text-align: center;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+.removeBtn:hover {
+  color: #b71c1c;
+}
+
+.summary {
+  flex: 1;
+  padding: 2rem;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  height: fit-content;
+}
+
+.summary h2 {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.checkoutBtn {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background-color: #0070f3;
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.checkoutBtn:hover {
+  background-color: #005bb5;
+}

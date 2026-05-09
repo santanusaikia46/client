@@ -1,0 +1,91 @@
+.editorContainer {
+  border: none;
+  background: #fff;
+}
+
+.toolbar {
+  padding: 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  background: #fdfdfd;
+}
+
+.toolbarButton {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #64748b;
+}
+
+.toolbarButton:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.isActive {
+  background: #394B3F;
+  color: #fff !important;
+}
+
+.isActive:hover {
+  background: #2a3830;
+  color: #fff;
+}
+
+.content {
+  padding: 1.5rem;
+  min-height: 300px;
+  max-height: 600px;
+  overflow-y: auto;
+  outline: none;
+}
+
+.content :global(.ProseMirror) {
+  min-height: 270px;
+  outline: none;
+}
+
+.content :global(.ProseMirror p) {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.content :global(.ProseMirror h1) {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.content :global(.ProseMirror h2) {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.content :global(.ProseMirror ul), 
+.content :global(.ProseMirror ol) {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.content :global(.ProseMirror blockquote) {
+  border-left: 4px solid #394B3F;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #475569;
+  margin: 1.5rem 0;
+}
+
+.content :global(.ProseMirror img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

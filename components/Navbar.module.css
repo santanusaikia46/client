@@ -1,0 +1,291 @@
+/* ── Header shell ─────────────────────────────────── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 58px;
+  background: rgba(250, 250, 248, 0.80);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.header.scrolled {
+  background: rgba(250, 250, 248, 0.92);
+  border-bottom-color: var(--border, rgba(17,17,16,0.08));
+}
+
+.inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: min(calc(100% - 2rem), 1120px);
+  margin: 0 auto;
+}
+
+/* ── Logo ─────────────────────────────────────────── */
+.logo {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text, #111110);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.logo:hover { opacity: 0.65; }
+
+/* ── Centre nav ───────────────────────────────────── */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  justify-content: center;
+}
+
+.navLink {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-2, #444441);
+  border-radius: var(--r-sm, 4px);
+  transition: color 0.2s, background 0.2s;
+}
+.navLink:hover { color: var(--text, #111110); background: rgba(17,17,16,0.05); }
+.navLink.active { color: var(--text, #111110); font-weight: 600; }
+
+/* ── Right actions ────────────────────────────────── */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+/* ── Icon buttons ─────────────────────────────────── */
+.iconBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-2, #444441);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.iconBtn:hover { background: rgba(17,17,16,0.06); color: var(--text, #111110); }
+
+.badge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background: #394B3F;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 999px;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* ── Search ───────────────────────────────────────── */
+.searchWrap {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+}
+
+.searchForm {
+  display: flex;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.searchOpen .searchForm {
+  width: 200px;
+}
+
+.searchInput {
+  width: 100%;
+  border: none;
+  background: rgba(17,17,16,0.06);
+  border-radius: var(--r-sm, 4px);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text, #111110);
+  outline: none;
+  transition: background 0.2s;
+}
+.searchInput::placeholder { color: var(--muted, #888884); }
+.searchInput:focus { background: rgba(17,17,16,0.09); }
+
+/* ── Text / pill buttons ──────────────────────────── */
+.textBtn {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-2, #444441);
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--r-sm, 4px);
+  transition: color 0.2s, background 0.2s;
+}
+.textBtn:hover { color: var(--text, #111110); background: rgba(17,17,16,0.05); }
+
+.pillBtn {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  background: #394B3F;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  transition: background 0.2s, transform 0.15s;
+}
+.pillBtn:hover { background: #2a3830; transform: translateY(-1px); }
+
+/* ── User avatar / dropdown ───────────────────────── */
+.userMenu {
+  position: relative;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #394B3F;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.avatar:hover { opacity: 0.8; }
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border, rgba(17,17,16,0.08));
+  border-radius: var(--r-md, 8px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+  min-width: 160px;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 200;
+}
+
+/* bridge gap */
+.userMenu::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: transparent;
+}
+
+.userMenu:hover .dropdown { display: flex; }
+
+.dropItem {
+  padding: 0.7rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text, #111110);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.dropItem:hover { background: var(--bg-alt, #f4f3f0); }
+
+/* ── Mobile ───────────────────────────────────────── */
+.mobileToggle {
+  display: none;
+}
+
+@media (max-width: 820px) {
+  .nav { display: none; }
+  .mobileToggle { display: flex; }
+  
+  .searchOpen .searchForm { width: 140px; }
+  
+  .actions { gap: 0.1rem; }
+  .textBtn, .pillBtn { display: none; } /* Hide auth buttons in bar on mobile */
+}
+
+/* Mobile Drawer */
+.mobileDrawer {
+  position: fixed;
+  top: 58px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 58px);
+  background: rgba(250, 250, 248, 0.98);
+  backdrop-filter: blur(10px);
+  z-index: 99;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+}
+
+@media (max-width: 820px) {
+  .mobileDrawer {
+    display: flex;
+  }
+}
+
+.mobileMenuVisible {
+  transform: translateX(0);
+}
+
+.mobileNav {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobileNavLink {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text, #111110);
+  text-decoration: none;
+  transition: opacity 0.2s;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mobileActive {
+  color: #394B3F;
+}
+
+.mobileDivider {
+  height: 1px;
+  background: rgba(0,0,0,0.05);
+  margin: 1rem 0;
+}

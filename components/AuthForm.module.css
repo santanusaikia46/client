@@ -1,0 +1,98 @@
+.wrapper {
+  width: min(calc(100% - 2rem), 1120px);
+  margin: 0 auto;
+  padding: 4rem 0 5rem;
+}
+
+.card {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0 0 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.card h1 {
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+}
+
+.description,
+.altCopy {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.form {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.form label {
+  font-weight: 700;
+}
+
+.form input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(24, 33, 38, 0.14);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--text);
+}
+
+.submitButton {
+  margin-top: 0.5rem;
+  padding: 0.95rem 1.2rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.statusMessage {
+  margin: 0.25rem 0 0;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  font-weight: 600;
+}
+
+.success {
+  background: rgba(54, 140, 88, 0.12);
+  color: #1c6b3f;
+}
+
+.error {
+  background: rgba(174, 78, 40, 0.12);
+  color: #8c3417;
+}
+
+.altCopy {
+  margin: 1.5rem 0 0;
+}
+
+.altCopy a {
+  color: var(--accent);
+  font-weight: 700;
+}

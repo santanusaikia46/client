@@ -1,0 +1,314 @@
+"use client";
+
+import { useEffect, useState, useRef, useCallback } from "react";
+import Link from "next/link";
+import styles from "./page.module.css";
+
+/* ── Scroll progress bar ── */
+function ScrollProgress() {
+  const barRef = useRef(null);
+  useEffect(() => {
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const pct = (window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100;
+      if (barRef.current) barRef.current.style.transform = `scaleX(${pct / 100})`;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return <div ref={barRef} className={styles.scrollProgress} />;
+}
+
+/* ── Intersection-observer reveal hook ── */
+function useReveal(deps = []) {
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal, .reveal-scale");
+    if (!els.length) return;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("revealed"); io.unobserve(e.target); }
+      }),
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+}
+
+/* ── Hero parallax hook ── */
+function useParallax(ref, speed = 0.35) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onScroll = () => {
+      el.style.transform = `translateY(${window.scrollY * speed}px) scale(1.04)`;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [ref, speed]);
+}
+
+/* ── Product Carousel ── */
+function ProductCarousel({ products, loading }) {
+  const trackRef = useRef(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const updateState = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanPrev(scrollLeft > 4);
+    setCanNext(scrollLeft < scrollWidth - clientWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateState, { passive: true });
+    const t = setTimeout(updateState, 150);
+    return () => { el.removeEventListener("scroll", updateState); clearTimeout(t); };
+  }, [products, updateState]);
+
+  if (loading) {
+    return (
+      <div className={styles.carouselTrack}>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className={styles.cardSkeleton} />
+        ))}
+      </div>
+    );
+  }
+
+  if (!products.length) return null;
+
+  return (
+    <div className={styles.carouselRoot}>
+      <div ref={trackRef} className={styles.carouselTrack}>
+        {products.map((p, i) => (
+          <Link
+            key={p._id}
+            href={`/products/${p._id}`}
+            className={styles.productCard}
+            style={{ animationDelay: `${i * 0.05}s` }}
+          >
+            <div className={styles.cardImageWrap}>
+              <img src={p.image} alt={p.name} className={styles.cardImage} loading="lazy" />
+              <div className={styles.cardBadge}>{p.category}</div>
+              <div className={styles.cardHoverOverlay}>
+                <span className={styles.cardQuickShop}>View Product</span>
+              </div>
+            </div>
+            <div className={styles.cardInfo}>
+              <p className={styles.cardName}>{p.name}</p>
+              <p className={styles.cardPrice}>₹{p.price.toLocaleString("en-IN")}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── Reusable Product Shelf Section ── */
+function ProductShelf({ title, eyebrow, products, loading, viewAllLink = "/products" }) {
+  if (!loading && !products?.length) return null;
+
+  return (
+    <section className={styles.shelfSection}>
+      <div className={styles.shelfHeader}>
+        <div>
+          {eyebrow && <p className={styles.sectionEyebrow}>{eyebrow}</p>}
+          <h2 className={styles.sectionTitle}>{title}</h2>
+        </div>
+        <Link href={viewAllLink} className={styles.viewAll}>
+          View all
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </Link>
+      </div>
+      <ProductCarousel products={products} loading={loading} />
+    </section>
+  );
+}
+
+/* ── Main page ── */
+export default function HomePage() {
+  const [sections, setSections] = useState({
+    featured: { data: [], loading: true },
+    newArrivals: { data: [], loading: true },
+    bestSellers: { data: [], loading: true },
+  });
+
+  const heroBgRef = useRef(null);
+  
+  // Collect all product lists for reveal hook dependencies
+  const allLoadedData = Object.values(sections).map(s => s.data);
+  const anyLoading = Object.values(sections).some(s => s.loading);
+  useReveal([anyLoading, ...allLoadedData]);
+  
+  useParallax(heroBgRef, 0.3);
+
+  const fetchSection = async (key, url) => {
+    try {
+      const res = await fetch(url);
+      const d = await res.json();
+      if (d.success) {
+        setSections(prev => ({
+          ...prev,
+          [key]: { data: d.data, loading: false }
+        }));
+      }
+    } catch (err) {
+      setSections(prev => ({
+        ...prev,
+        [key]: { ...prev[key], loading: false }
+      }));
+    }
+  };
+
+  useEffect(() => {
+    const api = process.env.NEXT_PUBLIC_API_BASE_URL;
+    
+    // 1. Featured
+    fetchSection('featured', `${api}/api/products/featured`);
+    
+    // 2. New Arrivals (sort by newest)
+    fetchSection('newArrivals', `${api}/api/products?limit=5&sort=-createdAt`);
+    
+    // 3. Best Sellers (using sort=rating as proxy)
+    fetchSection('bestSellers', `${api}/api/products?limit=5&sort=-rating`);
+  }, []);
+
+  return (
+    <main className={styles.page}>
+      <ScrollProgress />
+
+      {/* ── 1. CINEMATIC HERO ── */}
+      <section className={styles.hero}>
+        <div className={styles.heroOverlay} />
+        <img
+          ref={heroBgRef}
+          src="https://images.unsplash.com/photo-1610030469983-98e550d615ef?w=1800&q=85"
+          alt="Assam ethnic collection"
+          className={styles.heroBg}
+        />
+        <div className={styles.heroContent}>
+          <p className={styles.heroEyebrow}>Spring / Summer Collection</p>
+          <h1 className={styles.heroHeadline}>
+            Woven by hand.<br />Worn with pride.
+          </h1>
+          <p className={styles.heroSub}>
+            Authentic ethnic wear from the looms of Assam — crafted for the modern world.
+          </p>
+          <div className={styles.heroActions}>
+            <Link href="/products" className={styles.heroCta}>
+              Explore Collection
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </Link>
+            <Link href="/about" className={styles.heroSecondary}>Our Story</Link>
+          </div>
+        </div>
+        <div className={styles.scrollHint}><span /></div>
+      </section>
+
+      {/* ── 2. HERITAGE STORY ── */}
+      <section className={`${styles.heritageSection} reveal`}>
+        <div className={styles.heritageGrid}>
+          <div className={styles.heritageImgWrap}>
+            <img 
+              src="https://res.cloudinary.com/dsnsthnae/image/upload/v1776760587/tatiassam/x3o3yxgzkdo8nfu60jjz.avif" 
+              alt="Assamese Loom" 
+              className={styles.heritageImg}
+            />
+          </div>
+          <div className={styles.heritageContent}>
+            <p className={styles.sectionEyebrow}>Our Heritage</p>
+            <h2 className={styles.heritageTitle}>The Golden Thread of Assam (Assamese loom)</h2>
+
+            <p className={styles.heritageText}>
+              For generations, the weavers of Assam have transformed raw silk into liquid gold. 
+              Each piece in our collection is a labor of love, woven on traditional throw-shuttle looms 
+              that have remained unchanged for centuries.
+            </p>
+            <p className={styles.heritageText}>
+              By choosing TatiAssam, you are not just wearing a garment; you are preserving 
+              a heritage of craftsmanship that empowers local artisanal communities.
+            </p>
+            <Link href="/about" className={styles.heritageLink}>
+              Discover Our Process
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3. CATEGORY SHOWCASE ── */}
+      <section className={styles.categoryShowcase}>
+        <div className={styles.categoryGrid}>
+          {[
+            { label: "Women", img: "/category_women_silk_1776541078357.png", link: "/products?category=Women", sub: "Ethereal Silk" },
+            { label: "Men", img: "/category_men_silk_1776541100423.png", link: "/products?category=Men", sub: "Refined Tradition" },
+            { label: "Kids", img: "/category_kids_silk_1776541121762.png", link: "/products?category=Child", sub: "Vibrant Heritage" }
+          ].map((cat, i) => (
+            <Link key={cat.label} href={cat.link} className={`${styles.catCard} reveal-scale`} style={{ animationDelay: `${i * 0.1}s` }}>
+              <img src={cat.img} alt={cat.label} className={styles.catImg} />
+              <div className={styles.catOverlay}>
+                <div>
+                  <p className={styles.catSub}>{cat.sub}</p>
+                  <h3 className={styles.catTitle}>{cat.label}</h3>
+                </div>
+                <span className={styles.catBtn}>Explore</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Product Shelves (Preserved) ── */}
+      <ProductShelf 
+        title="Featured Products" 
+        eyebrow="Crafted for you" 
+        products={sections.featured.data} 
+        loading={sections.featured.loading} 
+      />
+
+      <ProductShelf 
+        title="New Arrivals" 
+        eyebrow="Just landed" 
+        products={sections.newArrivals.data} 
+        loading={sections.newArrivals.loading} 
+        viewAllLink="/products?sort=-createdAt"
+      />
+
+      <ProductShelf 
+        title="Best Sellers" 
+        eyebrow="Top choices" 
+        products={sections.bestSellers.data} 
+        loading={sections.bestSellers.loading} 
+        viewAllLink="/products?sort=-rating"
+      />
+
+
+      {/* ── 4. REFINED TRUST SIGNALS ── */}
+      <section className={`${styles.trustBar} reveal`}>
+        <div className={styles.trustGrid}>
+          {[
+            { icon: "🌍", title: "Worldwide Shipping", desc: "Crafted in Assam, delivered to your doorstep." },
+            { icon: "✨", title: "Handcrafted Quality", desc: "Each piece is 100% authentic and verified." },
+            { icon: "💳", title: "Secure Payments", desc: "Safe and encrypted checkout process." }
+          ].map((item) => (
+            <div key={item.title} className={styles.trustItem}>
+              <span className={styles.trustIcon}>{item.icon}</span>
+              <div>
+                <h4 className={styles.trustTitle}>{item.title}</h4>
+                <p className={styles.trustDesc}>{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+    </main>
+  );
+}
