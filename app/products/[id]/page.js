@@ -13,6 +13,10 @@ export async function generateMetadata({ params }) {
     // Note: ensure NEXT_PUBLIC_API_BASE_URL is reachable from server
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
     const res = await fetch(`${baseUrl}/api/products/${unwrappedParams.id}`);
+    if (!res.ok) {
+      console.error(`Failed to fetch metadata: ${res.status} ${res.statusText}`);
+      return { title: "Product | TatiAssam" };
+    }
     const data = await res.json();
     if (data.success && data.data) {
       const product = data.data;
@@ -61,6 +65,9 @@ export default async function ProductPageServer({ params }) {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
     const res = await fetch(`${baseUrl}/api/products/${unwrappedParams.id}`, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+    }
     const data = await res.json();
     if (data.success) {
       product = data.data;

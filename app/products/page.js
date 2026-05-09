@@ -49,6 +49,9 @@ function ProductsList() {
           url += `&keyword=${encodeURIComponent(searchQuery)}`;
         }
         const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+        }
         const data = await res.json();
         if (data.success) {
           setRawProducts(data.data);
