@@ -68,6 +68,7 @@
   flex-direction: column;
   gap: 1.5rem;
   padding-top: 0.5rem;
+  min-width: 0;
 }
 
 .name {
@@ -77,6 +78,8 @@
   color: var(--text, #111110);
   margin: 0;
   line-height: 1.2;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .price {
@@ -92,6 +95,8 @@
   line-height: 1.75;
   color: var(--text-2, #444441);
   margin: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* ── Divider ──────────────────────────────────────── */
@@ -130,10 +135,15 @@
   color: var(--text-2, #444441);
   display: flex;
   gap: 0.5rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .careContent {
   flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .careContent p {
@@ -185,6 +195,8 @@
   color: var(--text-2, #444441);
   position: relative;
   padding-left: 1.25rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .featureList li::before {
