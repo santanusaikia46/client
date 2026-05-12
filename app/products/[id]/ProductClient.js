@@ -124,7 +124,7 @@ export default function ProductClient({ product, id }) {
       <div className={styles.productLayout}>
         <div className={styles.imageContainer}>
           {product.images && product.images.length > 0 && (
-            <div className={styles.thumbnailGallery}>
+            <div className={`${styles.thumbnailGallery} ${styles.desktopGallery}`}>
               {[product.image, ...product.images].map((imgUrl, index) => (
                 <img 
                   key={index} 
@@ -162,6 +162,21 @@ export default function ProductClient({ product, id }) {
             dangerouslySetInnerHTML={{ __html: sanitizeHTML(product.description) }} 
             suppressHydrationWarning
           />
+
+          {/* Mobile Thumbnail Gallery - Shown only on small screens via CSS */}
+          {product.images && product.images.length > 0 && (
+            <div className={`${styles.thumbnailGallery} ${styles.mobileGallery}`}>
+              {[product.image, ...product.images].map((imgUrl, index) => (
+                <img 
+                  key={index} 
+                  src={imgUrl} 
+                  alt={`${product.name} thumbnail ${index + 1}`} 
+                  className={`${styles.thumbnail} ${activeImage === imgUrl ? styles.activeThumbnail : ''}`}
+                  onClick={() => setActiveImage(imgUrl)}
+                />
+              ))}
+            </div>
+          )}
           
           {product.marketing?.keyFeatures && (
             <div className={styles.featuresSection}>
