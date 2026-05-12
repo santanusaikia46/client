@@ -33,6 +33,12 @@
   .imageContainer {
     position: static;
     flex-direction: column;
+    align-items: center; /* Center the image on mobile */
+  }
+
+  .imageWrapper {
+    width: 90% !important; /* Make it a bit smaller */
+    margin: 0 auto;
   }
 }
 

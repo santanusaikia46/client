@@ -155,14 +155,6 @@ export default function ProductClient({ product, id }) {
         </div>
 
         <div className={styles.details}>
-          <h1 className={styles.name}>{product.name}</h1>
-          <p className={styles.price}>₹{currentPrice.toFixed(2)}</p>
-          <div 
-            className={styles.description} 
-            dangerouslySetInnerHTML={{ __html: sanitizeHTML(product.description) }} 
-            suppressHydrationWarning
-          />
-
           {/* Mobile Thumbnail Gallery - Shown only on small screens via CSS */}
           {product.images && product.images.length > 0 && (
             <div className={`${styles.thumbnailGallery} ${styles.mobileGallery}`}>
@@ -177,6 +169,14 @@ export default function ProductClient({ product, id }) {
               ))}
             </div>
           )}
+
+          <h1 className={styles.name}>{product.name}</h1>
+          <p className={styles.price}>₹{currentPrice.toFixed(2)}</p>
+          <div 
+            className={styles.description} 
+            dangerouslySetInnerHTML={{ __html: sanitizeHTML(product.description) }} 
+            suppressHydrationWarning
+          />
           
           {product.marketing?.keyFeatures && (
             <div className={styles.featuresSection}>

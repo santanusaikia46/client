@@ -53,6 +53,19 @@ export default function Navbar() {
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
       <div className={styles.inner}>
 
+        {/* Mobile menu toggle */}
+        <button 
+          className={`${styles.iconBtn} ${styles.mobileToggle}`}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          ) : (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          )}
+        </button>
+
         {/* Logo */}
         <Link href="/" className={styles.logo}>TatiAssam</Link>
 
@@ -105,8 +118,20 @@ export default function Navbar() {
               {/* User */}
               {isLoading ? null : isAuthenticated ? (
                 <div className={styles.userMenu}>
-                  <div className={styles.avatar}>
-                    {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    {isAdmin && (
+                      <Link 
+                        href="/admin/dashboard" 
+                        className={styles.iconBtn} 
+                        title="Command Centre"
+                        style={{ background: 'rgba(57, 75, 63, 0.1)', color: '#394B3F' }}
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                      </Link>
+                    )}
+                    <div className={styles.avatar}>
+                      {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+                    </div>
                   </div>
                   <div className={styles.dropdown}>
                     <Link className={styles.dropItem} href="/profile">My Profile</Link>
@@ -123,19 +148,7 @@ export default function Navbar() {
             </>
           )}
         </div>
-          {/* Mobile menu toggle */}
-          <button 
-            className={`${styles.iconBtn} ${styles.mobileToggle}`}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            ) : (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            )}
-          </button>
-        </div>
+      </div>
 
       {/* Mobile Menu Drawer */}
       <div className={`${styles.mobileDrawer} ${mobileMenuOpen ? styles.mobileMenuVisible : ""}`}>
