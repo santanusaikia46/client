@@ -195,7 +195,7 @@ function ProductsList() {
             {filteredProducts.map((product) => (
               <Link key={product._id} href={`/products/${product._id}`} className={styles.card}>
                 <div className={styles.imageWrap}>
-                  <img src={product.image} alt={product.name} className={styles.image} />
+                  <img src={product.image} alt={product.name} className={styles.image} loading="lazy" />
                   <div className={styles.cardOverlay}>
                     <span className={styles.overlayLabel}>View Product</span>
                   </div>
