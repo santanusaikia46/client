@@ -92,11 +92,11 @@
 }
 
 .heroHeadline {
-  font-size: clamp(2.8rem, 7vw, 6rem);
+  font-size: clamp(2.5rem, 12vw, 6rem); /* Larger on small mobile */
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.06;
-  margin: 0 0 1.5rem;
+  letter-spacing: -0.05em;
+  line-height: 1.02;
+  margin: 0 0 1.25rem;
   color: #fff;
 }
 
@@ -254,25 +254,25 @@
 /* ── Scrollable track: right-aligned with balanced spacing ── */
 .carouselTrack {
   display: flex;
-  justify-content: flex-end;
-  gap: 1.25rem;
+  justify-content: flex-start; /* Better for mobile-first */
+  gap: 1rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  /* Balanced spacing as requested */
-  padding-left: clamp(2.5rem, 10vw, 8rem);
-  padding-right: clamp(1.5rem, 5vw, 4rem);
+  padding-left: clamp(1.25rem, 5vw, 8rem);
+  padding-right: clamp(1.25rem, 5vw, 4rem);
   padding-top: 0.5rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2rem;
 }
 .carouselTrack::-webkit-scrollbar { display: none; }
 
 /* ── Carousel nav buttons (Grouped bottom-right like Apple) ── */
 /* ── Product card ── */
 .productCard {
-  flex: 0 0 280px;
-  scroll-snap-align: start;
+  flex: 0 0 300px;
+  scroll-snap-align: center; /* Center snap feels more premium on mobile */
+  scroll-snap-stop: always;
   display: block;
   text-decoration: none;
   color: inherit;
@@ -289,10 +289,14 @@
 }
 
 @media (max-width: 768px) {
-  .productCard { flex: 0 0 220px; }
+  .productCard { flex: 0 0 240px; }
+  .shelfHeader {
+    padding: 0 1.25rem;
+    margin-bottom: 1.5rem;
+  }
 }
 @media (max-width: 480px) {
-  .productCard { flex: 0 0 180px; }
+  .productCard { flex: 0 0 200px; }
 }
 
 .cardImageWrap {

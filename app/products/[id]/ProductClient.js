@@ -261,6 +261,21 @@ export default function ProductClient({ product, id }) {
           </div>
         </div>
       </div>
+      {/* Mobile Sticky Action Bar */}
+      <div className={styles.mobileStickyBar}>
+        <div className={styles.stickyBarInner}>
+          <div className={styles.stickyBarInfo}>
+            <span className={styles.stickyName}>{product.name}</span>
+            <span className={styles.stickyPrice}>₹{currentPrice.toFixed(2)}</span>
+          </div>
+          <button 
+            className={styles.stickyAddBtn}
+            onClick={handleEnquireClick}
+          >
+            Enquire Now
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

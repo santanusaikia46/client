@@ -1,0 +1,266 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem 6rem;
+  min-height: 80vh;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 2rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* ── Product Summary ── */
+.productSummary {
+  background-color: var(--bg-alt, #f4f3f0);
+  padding: 2.5rem;
+  border-radius: var(--r-lg, 12px);
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+@media (max-width: 900px) {
+  .productSummary {
+    position: static;
+    padding: 1.5rem;
+  }
+}
+
+.summaryTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  color: var(--text, #111110);
+}
+
+.productHeader {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.productImg {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: var(--r-md, 8px);
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.productInfo h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.productPrice {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent, #394B3F);
+}
+
+.optionsSection {
+  border-top: 1px solid var(--border, rgba(0,0,0,0.08));
+  padding-top: 1.5rem;
+}
+
+.optionsTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted, #7a8c81);
+  margin-bottom: 1rem;
+}
+
+.optionsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.optionItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.optionLabel {
+  color: var(--muted, #7a8c81);
+}
+
+.optionValue {
+  font-weight: 600;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+  color: var(--accent, #394B3F);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: gap 0.2s;
+}
+
+.backLink:hover {
+  gap: 0.75rem;
+}
+
+/* ── Form Side ── */
+.formSide {
+  padding: 0.5rem;
+}
+
+.formTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 2rem;
+  color: var(--text, #111110);
+}
+
+@media (max-width: 600px) {
+  .formTitle {
+    font-size: 1.75rem;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-2, #444441);
+}
+
+.input, .select, .textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--border, rgba(0,0,0,0.12));
+  border-radius: var(--r-md, 8px);
+  font-size: 1rem;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus, .select:focus, .textarea:focus {
+  outline: none;
+  border-color: var(--accent, #394B3F);
+  box-shadow: 0 0 0 4px rgba(57, 75, 63, 0.08);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submitBtn {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--accent, #394B3F);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md, 8px);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.submitBtn:hover {
+  background: var(--accent-dark, #2a3830);
+}
+
+.submitBtn:active {
+  transform: scale(0.98);
+}
+
+.submitBtn:disabled {
+  background: #ccd4cf;
+  cursor: not-allowed;
+}
+
+/* Success State */
+.successCard {
+  padding: 3rem 2rem;
+  background: rgba(57, 75, 63, 0.05);
+  border: 1px solid rgba(57, 75, 63, 0.1);
+  border-radius: var(--r-lg, 12px);
+  text-align: center;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  background: var(--accent, #394B3F);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
+}
+
+.successCard h3 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--accent, #394B3F);
+}
+
+.successCard p {
+  color: var(--text-2, #444441);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.continueBtn {
+  padding: 1rem 2rem;
+  background: var(--text, #111110);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.continueBtn:hover {
+  opacity: 0.9;
+}
+
+.error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  padding: 0.75rem 1rem;
+  background: #fef2f2;
+  border-radius: var(--r-md, 8px);
+  border: 1px solid #fee2e2;
+}
