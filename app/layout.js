@@ -44,6 +44,9 @@ export const metadata = {
   alternates: {
     canonical: BASE_URL,
   },
+  verification: {
+    google: "googlef36313df262e45e2",
+  },
 };
 
 /* ── Sitewide JSON-LD: Organization + WebSite with SearchAction ── */
