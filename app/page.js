@@ -136,8 +136,6 @@ function ProductShelf({ title, eyebrow, products, loading, viewAllLink = "/produ
 export default function HomePage() {
   const [sections, setSections] = useState({
     featured: { data: [], loading: true },
-    newArrivals: { data: [], loading: true },
-    bestSellers: { data: [], loading: true },
   });
 
   const heroBgRef = useRef(null);
@@ -172,12 +170,6 @@ export default function HomePage() {
     
     // 1. Featured
     fetchSection('featured', `${api}/api/products/featured`);
-    
-    // 2. New Arrivals (sort by newest)
-    fetchSection('newArrivals', `${api}/api/products?limit=5&sort=-createdAt`);
-    
-    // 3. Best Sellers (using sort=rating as proxy)
-    fetchSection('bestSellers', `${api}/api/products?limit=5&sort=-rating`);
   }, []);
 
   return (
@@ -212,44 +204,13 @@ export default function HomePage() {
         <div className={styles.scrollHint}><span /></div>
       </section>
 
-      {/* ── 2. HERITAGE STORY ── */}
-      <section className={`${styles.heritageSection} reveal`}>
-        <div className={styles.heritageGrid}>
-          <div className={styles.heritageImgWrap}>
-            <img 
-              src="https://res.cloudinary.com/dsnsthnae/image/upload/v1776760587/tatiassam/x3o3yxgzkdo8nfu60jjz.avif" 
-              alt="Assamese Loom" 
-              className={styles.heritageImg}
-            />
-          </div>
-          <div className={styles.heritageContent}>
-            <p className={styles.sectionEyebrow}>Our Heritage</p>
-            <h2 className={styles.heritageTitle}>The Golden Thread of Assam (Assamese loom)</h2>
-
-            <p className={styles.heritageText}>
-              For generations, the weavers of Assam have transformed raw silk into liquid gold. 
-              Each piece in our collection is a labor of love, woven on traditional throw-shuttle looms 
-              that have remained unchanged for centuries.
-            </p>
-            <p className={styles.heritageText}>
-              By choosing TatiAssam, you are not just wearing a garment; you are preserving 
-              a heritage of craftsmanship that empowers local artisanal communities.
-            </p>
-            <Link href="/about" className={styles.heritageLink}>
-              Discover Our Process
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 3. CATEGORY SHOWCASE ── */}
+      {/* ── 2. CATEGORY SHOWCASE ── */}
       <section className={styles.categoryShowcase}>
         <div className={styles.categoryGrid}>
           {[
-            { label: "Women", img: "/category_women_silk_1776541078357.png", link: "/products?category=Women", sub: "Ethereal Silk" },
-            { label: "Men", img: "/category_men_silk_1776541100423.png", link: "/products?category=Men", sub: "Refined Tradition" },
-            { label: "Kids", img: "/category_kids_silk_1776541121762.png", link: "/products?category=Child", sub: "Vibrant Heritage" }
+            { label: "women", img: "https://res.cloudinary.com/dsnsthnae/image/upload/v1778911221/tatiassam/g268lbtymbzi6he54gmb.avif", link: "/products?category=Women", sub: "Ethereal Silk" },
+            { label: "fabric", img: "https://res.cloudinary.com/dsnsthnae/image/upload/v1778911281/tatiassam/baxgsv9ejzpkvblljsyd.avif", link: "/products?category=Fabric", sub: "Indigenous Weaves" },
+            { label: "Home", img: "https://res.cloudinary.com/dsnsthnae/image/upload/v1778911382/tatiassam/gchdnp5frxe0cnkqcown.avif", link: "/products?category=Accessories", sub: "Artisanal Decor" }
           ].map((cat, i) => (
             <Link key={cat.label} href={cat.link} className={`${styles.catCard} reveal-scale`} style={{ animationDelay: `${i * 0.1}s` }}>
               <img src={cat.img} alt={cat.label} className={styles.catImg} />
@@ -265,6 +226,38 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── 3. OUR STORY (SEO Optimized) ── */}
+      <section className={`${styles.heritageSection} reveal`}>
+        <div className={styles.heritageGrid}>
+          <div className={styles.heritageImgWrap}>
+            <img 
+              src="https://res.cloudinary.com/dsnsthnae/image/upload/v1776760587/tatiassam/x3o3yxgzkdo8nfu60jjz.avif" 
+              alt="Authentic Assamese Loom and Weaving" 
+              className={styles.heritageImg}
+            />
+          </div>
+          <div className={styles.heritageContent}>
+            <p className={styles.sectionEyebrow}>Our Story</p>
+            <h2 className={styles.heritageTitle}>The Golden Thread of Assam: Authentic Handloom</h2>
+
+            <p className={styles.heritageText}>
+              For generations, the master weavers of Assam have transformed raw Muga and Eri silk into liquid gold. 
+              Each piece in the TatiAssam collection is a labor of love, meticulously hand-woven on 
+              traditional throw-shuttle looms that have stood the test of time.
+            </p>
+            <p className={styles.heritageText}>
+              By choosing our ethical fashion brand, you are not just wearing a premium garment; you are 
+              preserving a rich Assamese weaving heritage and empowering local artisanal communities 
+              through sustainable craftsmanship.
+            </p>
+            <Link href="/about" className={styles.heritageLink}>
+              Discover Our Process
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── Product Shelves (Preserved) ── */}
       <ProductShelf 
         title="Featured Products" 
@@ -273,41 +266,8 @@ export default function HomePage() {
         loading={sections.featured.loading} 
       />
 
-      <ProductShelf 
-        title="New Arrivals" 
-        eyebrow="Just landed" 
-        products={sections.newArrivals.data} 
-        loading={sections.newArrivals.loading} 
-        viewAllLink="/products?sort=-createdAt"
-      />
-
-      <ProductShelf 
-        title="Best Sellers" 
-        eyebrow="Top choices" 
-        products={sections.bestSellers.data} 
-        loading={sections.bestSellers.loading} 
-        viewAllLink="/products?sort=-rating"
-      />
 
 
-      {/* ── 4. REFINED TRUST SIGNALS ── */}
-      <section className={`${styles.trustBar} reveal`}>
-        <div className={styles.trustGrid}>
-          {[
-            { icon: "🌍", title: "Worldwide Shipping", desc: "Crafted in Assam, delivered to your doorstep." },
-            { icon: "✨", title: "Handcrafted Quality", desc: "Each piece is 100% authentic and verified." },
-            { icon: "💳", title: "Secure Payments", desc: "Safe and encrypted checkout process." }
-          ].map((item) => (
-            <div key={item.title} className={styles.trustItem}>
-              <span className={styles.trustIcon}>{item.icon}</span>
-              <div>
-                <h4 className={styles.trustTitle}>{item.title}</h4>
-                <p className={styles.trustDesc}>{item.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
     </main>
   );
