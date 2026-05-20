@@ -558,7 +558,7 @@ export default function AdminProductsList() {
               />
               <label htmlFor="featured" style={{ margin: 0, fontWeight: 700, fontSize: '1rem', color: '#166534', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Star size={18} fill={formData.featured ? "#166534" : "none"} />
-                Promote to Homepage (Featured Collection)
+                Promote to Homepage (Made to order Collection)
               </label>
             </div>
 
@@ -797,7 +797,7 @@ export default function AdminProductsList() {
             </div>
           </div>
           <div className={styles.statValue}>{stats.featuredCount}</div>
-          <div className={styles.statLabel}>Featured Items</div>
+          <div className={styles.statLabel}>Made to order Items</div>
         </div>
       </div>
 
@@ -847,10 +847,10 @@ export default function AdminProductsList() {
           </div>
           <div className={styles.bulkBtnGroup}>
             <button className={styles.bulkBtn} onClick={() => handleBulkToggleFeatured(true)}>
-              <Star size={14} fill="currentColor" /> Feature
+              <Star size={14} fill="currentColor" /> Made to order
             </button>
             <button className={styles.bulkBtn} onClick={() => handleBulkToggleFeatured(false)}>
-              <Star size={14} /> Unfeature
+              <Star size={14} /> Remove Made to order
             </button>
             <button className={styles.bulkBtn} onClick={() => handleBulkToggleActive(true)}>
               <CheckCircle2 size={14} /> Activate
@@ -962,7 +962,7 @@ export default function AdminProductsList() {
                     }}
                   >
                     <Star size={12} fill={product.featured ? "#ea580c" : "none"} />
-                    {product.featured ? 'Featured' : 'Regular'}
+                    {product.featured ? 'Made to order' : 'Regular'}
                   </button>
                   <button
                     onClick={() => handleToggleActive(product)}

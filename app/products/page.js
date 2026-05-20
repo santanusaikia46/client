@@ -66,7 +66,13 @@ function ProductsList() {
   }, [searchQuery]);
 
   // Filtering Logic
-  const matchCategory = (p, cats) => cats.length === 0 || cats.includes(p.category);
+  const matchCategory = (p, cats) => {
+    if (cats.length === 0) return true;
+    return cats.some(c => {
+      if (c === "Made to Order") return p.featured;
+      return p.category === c;
+    });
+  };
   const matchPrice = (p, maxP) => p.price <= maxP;
   const matchStock = (p, inStock) => !inStock || p.countInStock > 0;
   const matchVariants = (p, sizes, colors) => {
@@ -100,7 +106,8 @@ function ProductsList() {
 
     // 1. Initialize all possible facet keys from raw data
     rawProducts.forEach(p => {
-      categories[p.category] = 0;
+      if (p.category) categories[p.category] = 0;
+      if (p.featured) categories["Made to Order"] = 0;
       if (p.variants) {
         p.variants.forEach(v => {
           if (v.size) sizes[v.size] = 0;
@@ -120,7 +127,8 @@ function ProductsList() {
 
       // Category count: ignore category filter
       if (mPrice && mStock && mVariantsBoth) {
-        categories[p.category] = (categories[p.category] || 0) + 1;
+        if (p.category) categories[p.category] = (categories[p.category] || 0) + 1;
+        if (p.featured) categories["Made to Order"] = (categories["Made to Order"] || 0) + 1;
       }
 
       // Size count: ignore size filter
