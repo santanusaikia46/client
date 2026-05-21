@@ -186,12 +186,11 @@ export default function HomePage() {
           className={styles.heroBg}
         />
         <div className={styles.heroContent}>
-          <p className={styles.heroEyebrow}>Spring / Summer Collection</p>
           <h1 className={styles.heroHeadline}>
             Woven by hand.<br />Worn with pride.
           </h1>
           <p className={styles.heroSub}>
-            Authentic ethnic wear from the looms of Assam — crafted for the modern world.
+            Sustainable, organic handloom fabrics, women's clothing, and home decor.
           </p>
           <div className={styles.heroActions}>
             <Link href="/products" className={styles.heroCta}>
@@ -238,17 +237,13 @@ export default function HomePage() {
           </div>
           <div className={styles.heritageContent}>
             <p className={styles.sectionEyebrow}>Our Story</p>
-            <h2 className={styles.heritageTitle}>The Golden Thread of Assam: Authentic Handloom</h2>
+            <h2 className={styles.heritageTitle}>Authentic Assamese Handloom, Direct from Weavers</h2>
 
             <p className={styles.heritageText}>
-              For generations, the master weavers of Assam have transformed raw Muga and Eri silk into liquid gold. 
-              Each piece in the TatiAssam collection is a labor of love, meticulously hand-woven on 
-              traditional throw-shuttle looms that have stood the test of time.
+              At TatiAssam, we bring you the finest sustainable and organic handloom products, deeply rooted in the rich cultural heritage of Assam. From exquisite handwoven fabrics to elegant women's clothing and artisanal home decor, every piece tells a story.
             </p>
             <p className={styles.heritageText}>
-              By choosing our ethical fashion brand, you are not just wearing a premium garment; you are 
-              preserving a rich Assamese weaving heritage and empowering local artisanal communities 
-              through sustainable craftsmanship.
+              By working directly with master artisans in Dibrugarh and weaving communities across Assam, we ensure fair trade practices while preserving traditional craftsmanship. Choose TatiAssam for authentic, sustainable fashion and decor that empowers creators and honors heritage.
             </p>
             <Link href="/about" className={styles.heritageLink}>
               Discover Our Process

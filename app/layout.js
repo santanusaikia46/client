@@ -10,8 +10,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://tatiassam.com";
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),
-  title: "TatiAssam | Authentic Assam Ethnic Wear & Traditional Clothing",
-  description: "Shop authentic Assam ethnic wear, including traditional Mekhela Chador, Kurtas, and kids' traditional clothing at TatiAssam. Hand-crafted precision blending tradition with modern aesthetics.",
+  title: "TatiAssam | Sustainable Handloom Fabrics, Women's Clothing & Home Decor",
+  description: "Shop organic, sustainable handloom fabrics, women's ethnic clothing, and artisanal home decor at TatiAssam. Sourced directly from weavers in Dibrugarh and across Assam.",
   keywords: [
     "Assam ethnic wear", "Mekhela Chador", "Assamese silk saree",
     "handloom clothing India", "traditional Assam clothing",
@@ -20,8 +20,8 @@ export const metadata = {
     "Sualkuchi silk", "Muga silk", "Pat silk", "Eri silk"
   ],
   openGraph: {
-    title: "TatiAssam | Authentic Assam Ethnic Wear",
-    description: "Shop authentic Assam ethnic wear, including traditional Mekhela Chador and Kurtas.",
+    title: "TatiAssam | Sustainable Handloom Fabrics, Women's Clothing & Home Decor",
+    description: "Shop organic, sustainable handloom fabrics, women's ethnic clothing, and artisanal home decor at TatiAssam.",
     url: BASE_URL,
     siteName: "TatiAssam",
     images: [
@@ -37,8 +37,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TatiAssam | Authentic Assam Ethnic Wear",
-    description: "Shop authentic Assam ethnic wear, including traditional Mekhela Chador and Kurtas.",
+    title: "TatiAssam | Sustainable Handloom Fabrics, Women's Clothing & Home Decor",
+    description: "Shop organic, sustainable handloom fabrics, women's ethnic clothing, and artisanal home decor at TatiAssam.",
     images: ["/logo.svg"],
   },
   alternates: {
@@ -64,7 +64,7 @@ function SitewideJsonLd() {
       height: 512,
     },
     description:
-      "TatiAssam is a platform dedicated to the artisans and weavers of Assam, India. We bring authentic handwoven ethnic wear — Mekhela Chador, Kurtas, Muga silk, Pat silk, and Eri silk garments — directly from master weavers in Sualkuchi, Barpeta, and Majuli to customers worldwide.",
+      "TatiAssam is a platform dedicated to sustainable, organic handloom products. We bring authentic handwoven fabrics, women's clothing, and home decor directly from artisans in Dibrugarh and across Assam to customers worldwide.",
     foundingDate: "2022",
     founder: {
       "@type": "Person",
@@ -102,7 +102,7 @@ function SitewideJsonLd() {
     "@id": `${BASE_URL}/#website`,
     name: "TatiAssam",
     url: BASE_URL,
-    description: "Authentic Assam ethnic wear — handwoven Mekhela Chador, silk sarees, Kurtas, and traditional clothing from the looms of Assam.",
+    description: "Shop organic, sustainable handloom fabrics, women's ethnic clothing, and artisanal home decor at TatiAssam.",
     publisher: { "@id": `${BASE_URL}/#organization` },
     potentialAction: {
       "@type": "SearchAction",

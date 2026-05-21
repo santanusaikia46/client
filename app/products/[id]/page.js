@@ -24,13 +24,13 @@ export async function generateMetadata({ params }) {
       const plainDesc = stripHtml(product.description);
 
       return {
-        title: mkt.seoTitle || `${product.name} | TatiAssam`,
+        title: mkt.seoTitle || `${product.name} - Sustainable Assamese Handloom | TatiAssam`,
         description: mkt.metaDescription || plainDesc.substring(0, 160),
         keywords: mkt.seoKeywords ? mkt.seoKeywords.split(',').map(k => k.trim()) : [
           product.name, product.category, "TatiAssam", "Assam ethnic wear", "handwoven"
         ],
         openGraph: {
-          title: mkt.seoTitle || `${product.name} | TatiAssam`,
+          title: mkt.seoTitle || `${product.name} - Sustainable Assamese Handloom | TatiAssam`,
           description: mkt.metaDescription || plainDesc.substring(0, 160),
           url: `${BASE_URL}/products/${unwrappedParams.id}`,
           type: "website",
