@@ -1,0 +1,389 @@
+.page {
+  min-height: 100vh;
+  background-color: #fcfdfc;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Background elements for premium feel */
+.bgBlob1 {
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(234, 210, 168, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bgBlob2 {
+  position: absolute;
+  bottom: -10%;
+  left: -5%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, rgba(57, 75, 63, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Hero banner ───────────────────────────────────── */
+.hero {
+  position: relative;
+  background: #394B3F;
+  color: #fff;
+  padding: 6rem 1.5rem 5rem;
+  text-align: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.heroBadge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.03em;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.heroSub {
+  font-size: 1.15rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-weight: 300;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* ── Content wrapper ───────────────────────────────── */
+.containerWide {
+  width: min(calc(100% - 3rem), 1200px);
+  margin: -3rem auto 5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Contact form ──────────────────────────────────── */
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (max-width: 850px) {
+  .contactGrid { 
+    grid-template-columns: 1fr; 
+  }
+}
+
+.sectionTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text, #1c2620);
+  margin: 0 0 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  width: 40%;
+  height: 3px;
+  background: var(--accent, #394B3F);
+  border-radius: 2px;
+}
+
+.contactInfoCard {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 20px 40px rgba(57, 75, 63, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  animation: slideInLeft 0.8s ease-out 0.6s both;
+}
+
+.contactItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1rem;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.contactItem:hover {
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(57, 75, 63, 0.05);
+  transform: translateY(-2px);
+}
+
+.contactItemIconWrap {
+  width: 50px;
+  height: 50px;
+  background: rgba(57, 75, 63, 0.05);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent, #394B3F);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.contactItem:hover .contactItemIconWrap {
+  background: var(--accent, #394B3F);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.contactItem h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text, #1c2620);
+  margin: 0 0 0.4rem;
+  letter-spacing: -0.01em;
+}
+
+.contactItem p {
+  font-size: 0.95rem;
+  color: var(--muted, #5a6660);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Form Styles */
+.formCard {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 3rem 3.5rem;
+  box-shadow: 0 20px 50px rgba(57, 75, 63, 0.1);
+  border: 1px solid rgba(0,0,0,0.03);
+  animation: slideInRight 0.8s ease-out 0.8s both;
+}
+
+@media (max-width: 600px) {
+  .formCard {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .formRow { grid-template-columns: 1fr; }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text, #1c2620);
+  margin-left: 0.25rem;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 1rem;
+  color: #8c9b93;
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  background: #f7faf8;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 1rem 1rem 1rem 3rem;
+  font-size: 1rem;
+  color: var(--text, #1c2620);
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.field select {
+  padding-left: 3rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+.field textarea {
+  padding: 1rem;
+  resize: vertical;
+  min-height: 150px;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  background: #ffffff;
+  border-color: var(--accent, #394B3F);
+  box-shadow: 0 0 0 4px rgba(57, 75, 63, 0.1);
+}
+
+.field input:focus + .inputIcon,
+.field select:focus + .inputIcon {
+  color: var(--accent, #394B3F);
+}
+
+.field input::placeholder,
+.field select::placeholder,
+.field textarea::placeholder {
+  color: #8c9b93;
+  font-weight: 400;
+}
+
+.submitBtn {
+  background: var(--accent, #394B3F);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  box-shadow: 0 8px 20px rgba(57, 75, 63, 0.25);
+}
+
+.submitBtn:hover {
+  background: #2a3830;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(57, 75, 63, 0.35);
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+}
+
+.successMsg {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.successIconWrap {
+  width: 80px;
+  height: 80px;
+  background: #dcfce7;
+  color: #166534;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.successMsg h3 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem;
+  color: #166534;
+}
+
+.successMsg p {
+  color: #15803d;
+  margin: 0;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}

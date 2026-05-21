@@ -45,7 +45,7 @@ export default function Navbar() {
   const navLinks = [
     { label: "Women",          href: "/products?category=Women" },
     { label: "Fabric",         href: "/products?category=Fabric" },
-    { label: "Home",           href: "/products?category=Accessories" },
+    { label: "Home",           href: "/products?category=Home" },
     { label: "Made to order",  href: "/products?category=Made to Order" },
     { label: "about us",       href: "/about" },
   ];

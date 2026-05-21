@@ -210,7 +210,7 @@ export default function HomePage() {
           {[
             { label: "women", img: "https://res.cloudinary.com/dsnsthnae/image/upload/v1778911221/tatiassam/g268lbtymbzi6he54gmb.avif", link: "/products?category=Women", sub: "Ethereal Silk" },
             { label: "Fabric", img: "https://res.cloudinary.com/dsnsthnae/image/upload/v1778911281/tatiassam/baxgsv9ejzpkvblljsyd.avif", link: "/products?category=Fabric", sub: "Indigenous Weaves" },
-            { label: "Home", img: "https://res.cloudinary.com/dsnsthnae/image/upload/v1778911382/tatiassam/gchdnp5frxe0cnkqcown.avif", link: "/products?category=Accessories", sub: "Artisanal Decor" }
+            { label: "Home", img: "https://res.cloudinary.com/dsnsthnae/image/upload/v1778911382/tatiassam/gchdnp5frxe0cnkqcown.avif", link: "/products?category=Home", sub: "Artisanal Decor" }
           ].map((cat, i) => (
             <Link key={cat.label} href={cat.link} className={`${styles.catCard} reveal-scale`} style={{ animationDelay: `${i * 0.1}s` }}>
               <img src={cat.img} alt={cat.label} className={styles.catImg} />

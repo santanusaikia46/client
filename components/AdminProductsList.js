@@ -433,7 +433,7 @@ export default function AdminProductsList() {
               <select id="category" name="category" value={formData.category} onChange={handleInputChange}>
                 <option value="">Select a Category</option>
                 <option value="Women">Women</option>
-                <option value="Accessories">Accessories</option>
+                <option value="Home">Home</option>
                 <option value="Fabric">Fabric</option>
               </select>
             </div>
@@ -822,7 +822,7 @@ export default function AdminProductsList() {
           >
             <option value="">All Categories</option>
             <option value="Women">Women</option>
-            <option value="Accessories">Accessories</option>
+            <option value="Home">Home</option>
             <option value="Fabric">Fabric</option>
           </select>
 
