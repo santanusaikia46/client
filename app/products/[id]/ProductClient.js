@@ -189,12 +189,11 @@ export default function ProductClient({ product, id }) {
             </div>
           )}
 
-          {(product.material || product.careInstructions || product.fit) && (
+          {(product.material || product.careInstructions) && (
             <div className={styles.specifications}>
               <h3>Specifications</h3>
               <ul className={styles.specList}>
                 {product.material && <li><strong>Material:</strong> {product.material}</li>}
-                {product.fit && <li><strong>Fit:</strong> {product.fit}</li>}
                 {product.careInstructions && (
                   <li>
                     <strong>Care:</strong> 

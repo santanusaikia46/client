@@ -73,19 +73,19 @@ function SitewideJsonLd() {
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+91-98765-43210",
+        telephone: "+91-93875-55306",
         contactType: "customer service",
-        email: "support@tatiassam.com",
+        email: "tatiassam22@gmail.com",
         availableLanguage: ["English", "Hindi", "Assamese"],
         areaServed: "IN",
       },
     ],
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Sualkuchi Weaving District",
-      addressLocality: "Kamrup",
+      streetAddress: "Sonari Patty, New Market Road",
+      addressLocality: "Dibrugarh",
       addressRegion: "Assam",
-      postalCode: "781103",
+      postalCode: "786001",
       addressCountry: "IN",
     },
     sameAs: [
