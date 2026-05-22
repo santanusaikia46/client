@@ -50,14 +50,13 @@
 /* Parallax bg — JS sets transform; CSS sets base scale via animation */
 .heroBg {
   position: absolute;
-  inset: -10% 0;
+  inset: 0;
   width: 100%;
-  height: 120%;
+  height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center;
   opacity: 0.55;
   will-change: transform;
-  transform: translateY(0) scale(1.04);
   animation: heroZoom 14s ease-out forwards;
 }
 
@@ -238,32 +237,19 @@
   position: relative;
 }
 
-/* Fade on LEFT edge only — hints at cards to the left when scrolled */
-.carouselRoot::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 2.5rem;
-  left: 0;
-  width: clamp(4rem, 12vw, 10rem);
-  background: linear-gradient(to right, var(--bg, #fafaf8) 35%, transparent 100%);
-  z-index: 2;
-  pointer-events: none;
-}
+/* Fade on LEFT edge only removed as it was hiding the product */
 
 /* ── Scrollable track: right-aligned with balanced spacing ── */
 .carouselTrack {
   display: flex;
-  justify-content: flex-start; /* Better for mobile-first */
-  gap: 1rem;
+  justify-content: safe center; /* Centers items safely, preventing left-cutoff on mobile overflow */
+  gap: 2rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-left: clamp(1.25rem, 5vw, 8rem);
-  padding-right: clamp(1.25rem, 5vw, 4rem);
-  padding-top: 0.5rem;
-  padding-bottom: 2rem;
+  padding: 1rem 2rem 2rem 2rem;
+  width: 100%;
 }
 .carouselTrack::-webkit-scrollbar { display: none; }
 

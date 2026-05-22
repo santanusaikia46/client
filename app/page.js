@@ -144,8 +144,6 @@ export default function HomePage() {
   const allLoadedData = Object.values(sections).map(s => s.data);
   const anyLoading = Object.values(sections).some(s => s.loading);
   useReveal([anyLoading, ...allLoadedData]);
-  
-  useParallax(heroBgRef, 0.3);
 
   const fetchSection = async (key, url) => {
     try {
@@ -179,11 +177,14 @@ export default function HomePage() {
       {/* ── 1. CINEMATIC HERO ── */}
       <section className={styles.hero}>
         <div className={styles.heroOverlay} />
-        <img
+        <video
           ref={heroBgRef}
-          src="https://images.unsplash.com/photo-1610030469983-98e550d615ef?w=1800&q=85"
-          alt="Assam ethnic collection"
+          src="https://res.cloudinary.com/dsnsthnae/video/upload/q_auto/f_auto/v1779454928/Frontend_Photos_in_GIF_vk70zc.mp4"
           className={styles.heroBg}
+          autoPlay
+          muted
+          loop
+          playsInline
         />
         <div className={styles.heroContent}>
           <h1 className={styles.heroHeadline}>
@@ -194,7 +195,7 @@ export default function HomePage() {
           </p>
           <div className={styles.heroActions}>
             <Link href="/products" className={styles.heroCta}>
-              Explore Collection
+              Discover Collection
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </Link>
             <Link href="/about" className={styles.heroSecondary}>Our Story</Link>
@@ -218,7 +219,7 @@ export default function HomePage() {
                   <p className={styles.catSub}>{cat.sub}</p>
                   <h3 className={styles.catTitle}>{cat.label}</h3>
                 </div>
-                <span className={styles.catBtn}>Explore</span>
+                <span className={styles.catBtn}>Discover</span>
               </div>
             </Link>
           ))}
@@ -255,7 +256,7 @@ export default function HomePage() {
 
       {/* ── Product Shelves (Preserved) ── */}
       <ProductShelf 
-        title="Made to order" 
+        title="Best sellers" 
         eyebrow="Crafted for you" 
         products={sections.featured.data} 
         loading={sections.featured.loading} 
