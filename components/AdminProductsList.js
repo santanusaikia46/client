@@ -171,7 +171,7 @@ export default function AdminProductsList() {
       color: product.color || "",
       featured: product.featured || false,
       isActive: product.isActive !== undefined ? product.isActive : true,
-      hasColorVariation: product.hasColorVariation !== undefined ? product.hasColorVariation : true,
+      hasColorVariation: (product.marketing && product.marketing.hasColorVariation !== undefined) ? product.marketing.hasColorVariation : true,
       variants: (product.variants || []).map(v => ({
         ...v,
         images: v.images && Array.isArray(v.images) ? v.images.join('\n') : (v.images || "")
@@ -259,7 +259,11 @@ export default function AdminProductsList() {
           price: Number(formData.price),
           countInStock: Number(formData.countInStock),
           images: formData.images.split('\n').map(url => url.trim()).filter(url => url),
-          variants: formattedVariants
+          variants: formattedVariants,
+          marketing: {
+            ...formData.marketing,
+            hasColorVariation: formData.hasColorVariation
+          }
         })
       });
 
