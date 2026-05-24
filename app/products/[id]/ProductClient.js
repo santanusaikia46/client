@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
@@ -18,6 +18,7 @@ export default function ProductClient({ product, id }) {
   const router = useRouter();
   
   const [activeImage, setActiveImage] = useState(product?.image || null);
+  const [userSelectedImage, setUserSelectedImage] = useState(false);
 
   // Magnifier State
   const imgRef = useRef(null);
@@ -89,6 +90,9 @@ export default function ProductClient({ product, id }) {
   const availableColors = hasVariants ? [...new Set(product.variants.map(v => v.color).filter(Boolean))] : [];
 
   let currentPrice = product.price;
+  let currentImage = product.image;
+  let currentImages = product.images || [];
+  let currentName = product.name;
 
   if (hasVariants) {
     const matchedVariant = product.variants.find(v => {
@@ -100,7 +104,31 @@ export default function ProductClient({ product, id }) {
     if (matchedVariant) {
       currentPrice = matchedVariant.price;
     }
+
+    if (selectedColor) {
+      const colorVariant = product.variants.find(v => v.color === selectedColor);
+      if (colorVariant) {
+        if (colorVariant.image) currentImage = colorVariant.image;
+        if (colorVariant.images && colorVariant.images.length > 0) currentImages = colorVariant.images;
+        if (colorVariant.name) currentName = colorVariant.name;
+        // Optional fallback: append color if not explicitly named
+        else if (product.name && !product.name.includes(selectedColor)) {
+           currentName = `${product.name} - ${selectedColor}`;
+        }
+      }
+    }
   }
+
+  useEffect(() => {
+    if (selectedColor && !userSelectedImage) {
+      setActiveImage(currentImage);
+    }
+  }, [selectedColor, currentImage, userSelectedImage]);
+
+  const handleThumbnailClick = (imgUrl) => {
+    setActiveImage(imgUrl);
+    setUserSelectedImage(true);
+  };
 
   const handleEnquireClick = () => {
     const queryParams = new URLSearchParams();
@@ -123,15 +151,15 @@ export default function ProductClient({ product, id }) {
 
       <div className={styles.productLayout}>
         <div className={styles.imageContainer}>
-          {product.images && product.images.length > 0 && (
+          {currentImages.length > 0 && (
             <div className={`${styles.thumbnailGallery} ${styles.desktopGallery}`}>
-              {[product.image, ...product.images].map((imgUrl, index) => (
+              {[currentImage, ...currentImages.filter(img => img !== currentImage)].map((imgUrl, index) => (
                 <img 
                   key={index} 
                   src={imgUrl} 
-                  alt={`${product.name} thumbnail ${index + 1}`} 
+                  alt={`${currentName} thumbnail ${index + 1}`} 
                   className={`${styles.thumbnail} ${activeImage === imgUrl ? styles.activeThumbnail : ''}`}
-                  onClick={() => setActiveImage(imgUrl)}
+                  onClick={() => handleThumbnailClick(imgUrl)}
                 />
               ))}
             </div>
@@ -145,8 +173,8 @@ export default function ProductClient({ product, id }) {
           >
             <img 
               ref={imgRef}
-              src={activeImage || product.image} 
-              alt={product.name} 
+              src={activeImage || currentImage} 
+              alt={currentName} 
               className={styles.image} 
             />
             {showMagnifier && <div className={styles.lens} style={lensStyle}></div>}
@@ -156,21 +184,21 @@ export default function ProductClient({ product, id }) {
 
         <div className={styles.details}>
           {/* Mobile Thumbnail Gallery - Shown only on small screens via CSS */}
-          {product.images && product.images.length > 0 && (
+          {currentImages.length > 0 && (
             <div className={`${styles.thumbnailGallery} ${styles.mobileGallery}`}>
-              {[product.image, ...product.images].map((imgUrl, index) => (
+              {[currentImage, ...currentImages.filter(img => img !== currentImage)].map((imgUrl, index) => (
                 <img 
                   key={index} 
                   src={imgUrl} 
-                  alt={`${product.name} thumbnail ${index + 1}`} 
+                  alt={`${currentName} thumbnail ${index + 1}`} 
                   className={`${styles.thumbnail} ${activeImage === imgUrl ? styles.activeThumbnail : ''}`}
-                  onClick={() => setActiveImage(imgUrl)}
+                  onClick={() => handleThumbnailClick(imgUrl)}
                 />
               ))}
             </div>
           )}
 
-          <h1 className={styles.name}>{product.name}</h1>
+          <h1 className={styles.name}>{currentName}</h1>
           <p className={styles.price}>₹{currentPrice.toFixed(2)}</p>
           <div 
             className={styles.description} 
@@ -218,12 +246,15 @@ export default function ProductClient({ product, id }) {
                       const colorMap = { Red: "#ef4444", Blue: "#3b82f6", Green: "#10b981", Gold: "#eab308", Black: "#1f2937", White: "#ffffff" };
                       const bgColor = colorMap[color] || color.toLowerCase();
                       return (
-                         <button 
+                        <button 
                           key={color} 
                           className={`${styles.colorSwatch} ${selectedColor === color ? styles.selectedColor : ''}`}
                           style={{ backgroundColor: bgColor }}
                           title={color}
-                          onClick={() => setSelectedColor(color)}
+                          onClick={() => {
+                            setSelectedColor(color);
+                            setUserSelectedImage(false); // Reset so color change automatically updates main image
+                          }}
                         />
                       );
                     })}

@@ -53,6 +53,7 @@ export default function AdminProductsList() {
     color: "",
     featured: false,
     isActive: true,
+    hasColorVariation: true,
     variants: [],
     marketing: {
       slug: "",
@@ -130,6 +131,16 @@ export default function AdminProductsList() {
     });
   };
 
+  const handleVariantPrimaryImageSuccess = (index, url) => {
+    handleVariantChange(index, 'image', url);
+  };
+
+  const handleVariantAdditionalImagesSuccess = (index, urls) => {
+    const newUrls = Array.isArray(urls) ? urls.join('\n') : urls;
+    const current = formData.variants[index].images ? formData.variants[index].images.trim() : "";
+    handleVariantChange(index, 'images', current ? `${current}\n${newUrls}` : newUrls);
+  };
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -160,7 +171,11 @@ export default function AdminProductsList() {
       color: product.color || "",
       featured: product.featured || false,
       isActive: product.isActive !== undefined ? product.isActive : true,
-      variants: product.variants || [],
+      hasColorVariation: product.hasColorVariation !== undefined ? product.hasColorVariation : true,
+      variants: (product.variants || []).map(v => ({
+        ...v,
+        images: v.images && Array.isArray(v.images) ? v.images.join('\n') : (v.images || "")
+      })),
       marketing: product.marketing || {
         slug: "", seoTitle: "", metaDescription: "", shortDescription: "", hook: "", keyFeatures: "", benefits: "", specifications: "", useCases: "", usp: "", seoKeywords: "", searchTags: "", faqs: "", socialMediaCaption: "", hashtags: "", adCopy: ""
       }
@@ -196,7 +211,7 @@ export default function AdminProductsList() {
   const addVariant = () => {
     setFormData({
       ...formData,
-      variants: [...formData.variants, { size: "", color: "", price: "", countInStock: "" }]
+      variants: [...formData.variants, { size: "", color: "", price: "", countInStock: "", name: "", image: "", images: "", description: "" }]
     });
   };
 
@@ -226,7 +241,11 @@ export default function AdminProductsList() {
         size: v.size,
         color: v.color,
         price: Number(v.price),
-        countInStock: Number(v.countInStock)
+        countInStock: Number(v.countInStock),
+        name: v.name || "",
+        image: v.image || "",
+        images: v.images ? v.images.split('\n').map(url => url.trim()).filter(url => url) : [],
+        description: v.description || ""
       }));
 
       const res = await fetch(url, {
@@ -424,8 +443,12 @@ export default function AdminProductsList() {
         <form onSubmit={handleSubmit}>
           <div className={styles.formGrid}>
             <div className={styles.formGroup}>
-              <label htmlFor="name"><div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Tag size={14} /> Product Name</div></label>
-              <input type="text" id="name" name="name" placeholder="e.g. Traditional Silk Saree" value={formData.name} onChange={handleInputChange} required />
+              <label htmlFor="name">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Tag size={14} /> Product Name {(formData.variants.length > 0 && formData.hasColorVariation) && <span style={{ fontSize: '0.7rem', color: '#f59e0b', fontWeight: 'bold' }}>(Disabled: Base name locked when color variants exist)</span>}
+                </div>
+              </label>
+              <input type="text" id="name" name="name" placeholder="e.g. Traditional Silk Saree" value={formData.name} onChange={handleInputChange} required disabled={formData.variants.length > 0 && formData.hasColorVariation} style={{ opacity: (formData.variants.length > 0 && formData.hasColorVariation) ? 0.6 : 1, cursor: (formData.variants.length > 0 && formData.hasColorVariation) ? 'not-allowed' : 'text' }} />
             </div>
             
             <div className={styles.formGroup}>
@@ -458,53 +481,57 @@ export default function AdminProductsList() {
               <input type="number" id="countInStock" name="countInStock" min="0" value={formData.countInStock} onChange={handleInputChange} />
             </div>
 
-            <div className={`${styles.formGroup} ${styles.fullWidth}`}>
-              <label htmlFor="image"><div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><ImageIcon size={14} /> Primary Product Image</div></label>
-              <div style={{ display: 'flex', gap: '0', height: '48px' }}>
-                <input 
-                  type="text" 
-                  id="image" 
-                  name="image" 
-                  placeholder="Image URL or upload" 
-                  value={formData.image} 
-                  onChange={handleInputChange} 
-                  style={{ 
-                    flex: 1, 
-                    height: '100%',
-                    borderTopRightRadius: 0, 
-                    borderBottomRightRadius: 0,
-                    borderRight: 'none',
-                    margin: 0,
-                    fontSize: '0.9rem'
-                  }}
-                />
-                <div style={{ height: '100%' }}>
-                  <ImageUpload 
-                    onUploadSuccess={handlePrimaryImageSuccess} 
-                    compact={true} 
-                  />
+            {(formData.variants.length === 0 || !formData.hasColorVariation) && (
+              <>
+                <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+                  <label htmlFor="image"><div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><ImageIcon size={14} /> Primary Product Image</div></label>
+                  <div style={{ display: 'flex', gap: '0', height: '48px' }}>
+                    <input 
+                      type="text" 
+                      id="image" 
+                      name="image" 
+                      placeholder="Image URL or upload" 
+                      value={formData.image} 
+                      onChange={handleInputChange} 
+                      style={{ 
+                        flex: 1, 
+                        height: '100%',
+                        borderTopRightRadius: 0, 
+                        borderBottomRightRadius: 0,
+                        borderRight: 'none',
+                        margin: 0,
+                        fontSize: '0.9rem'
+                      }}
+                    />
+                    <div style={{ height: '100%' }}>
+                      <ImageUpload 
+                        onUploadSuccess={handlePrimaryImageSuccess} 
+                        compact={true} 
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <div className={`${styles.formGroup} ${styles.fullWidth}`}>
-              <label htmlFor="images">Additional Image URLs (One per line)</label>
-              <textarea 
-                id="images" 
-                name="images" 
-                placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg" 
-                value={formData.images} 
-                onChange={handleInputChange} 
-                style={{ borderRadius: '12px', minHeight: '80px', fontSize: '0.9rem' }}
-              />
-              <div style={{ marginTop: '0.75rem' }}>
-                <ImageUpload 
-                  label="Batch Upload Additional Images" 
-                  onUploadSuccess={handleAdditionalImagesSuccess} 
-                  multiple={true} 
-                />
-              </div>
-            </div>
+                <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+                  <label htmlFor="images">Additional Image URLs (One per line)</label>
+                  <textarea 
+                    id="images" 
+                    name="images" 
+                    placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg" 
+                    value={formData.images} 
+                    onChange={handleInputChange} 
+                    style={{ borderRadius: '12px', minHeight: '80px', fontSize: '0.9rem' }}
+                  />
+                  <div style={{ marginTop: '0.75rem' }}>
+                    <ImageUpload 
+                      label="Batch Upload Additional Images" 
+                      onUploadSuccess={handleAdditionalImagesSuccess} 
+                      multiple={true} 
+                    />
+                  </div>
+                </div>
+              </>
+            )}
 
             <div className={`${styles.fullWidth}`} style={{ marginTop: '1rem', marginBottom: '0.5rem', background: '#f8fafc', padding: '0.85rem 1.25rem', borderRadius: '12px', borderLeft: '4px solid #3b82f6', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <Info size={18} color="#3b82f6" />
@@ -521,12 +548,14 @@ export default function AdminProductsList() {
               <input type="text" id="fit" name="fit" placeholder="e.g. Traditional Flow" value={formData.fit} onChange={handleInputChange} />
             </div>
 
-            {formData.variants.length === 0 && (
+            {(formData.variants.length === 0 || !formData.hasColorVariation) && (
               <>
-                <div className={styles.formGroup}>
-                  <label htmlFor="size">Available Size(s)</label>
-                  <input type="text" id="size" name="size" placeholder="e.g. S, M, L or Free Size" value={formData.size} onChange={handleInputChange} />
-                </div>
+                {formData.variants.length === 0 && (
+                  <div className={styles.formGroup}>
+                    <label htmlFor="size">Available Size(s)</label>
+                    <input type="text" id="size" name="size" placeholder="e.g. S, M, L or Free Size" value={formData.size} onChange={handleInputChange} />
+                  </div>
+                )}
                 <div className={styles.formGroup}>
                   <label htmlFor="color">Available Color(s)</label>
                   <input type="text" id="color" name="color" placeholder="e.g. Red, Blue, etc." value={formData.color} onChange={handleInputChange} />
@@ -577,16 +606,33 @@ export default function AdminProductsList() {
               </label>
             </div>
 
-            <div className={`${styles.formGroup} ${styles.fullWidth}`}>
-              <label htmlFor="description">Editorial Description</label>
-              <div style={{ border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden' }}>
-                <RichTextEditor 
-                  content={formData.description} 
-                  onChange={(html) => setFormData(prev => ({ ...prev, description: html }))} 
-                  placeholder="Write a premium description for this product..."
-                  token={token}
-                />
+            {(formData.variants.length === 0 || !formData.hasColorVariation) && (
+              <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+                <label htmlFor="description">Editorial Description</label>
+                <div style={{ border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden' }}>
+                  <RichTextEditor 
+                    content={formData.description} 
+                    onChange={(html) => setFormData(prev => ({ ...prev, description: html }))} 
+                    placeholder="Write a premium description for this product..."
+                    token={token}
+                  />
+                </div>
               </div>
+            )}
+
+            <div className={`${styles.fullWidth}`} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.5rem', background: '#fdf4ff', borderRadius: '16px', border: '1px solid #fbcfe8', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                id="hasColorVariation"
+                name="hasColorVariation"
+                checked={!!formData.hasColorVariation}
+                onChange={handleInputChange}
+                style={{ width: '20px', height: '20px', accentColor: '#db2777', cursor: 'pointer' }}
+              />
+              <label htmlFor="hasColorVariation" style={{ margin: 0, fontWeight: 700, fontSize: '1rem', color: '#be185d', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Layers size={18} color={formData.hasColorVariation ? "#db2777" : "#f472b6"} />
+                Is there any variation in colour of the product?
+              </label>
             </div>
 
             <div className={`${styles.fullWidth}`} style={{ marginTop: '1rem', marginBottom: '0.5rem', background: '#f8fafc', padding: '0.85rem 1.25rem', borderRadius: '12px', borderLeft: '4px solid #8b5cf6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -601,41 +647,72 @@ export default function AdminProductsList() {
             </div>
 
             {formData.variants.length > 0 && (
-              <div className={`${styles.fullWidth}`} style={{ background: '#fff', padding: '1rem', borderRadius: '16px', border: '1px solid #f1f5f9', overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-                  <thead>
-                    <tr>
-                      <th style={{ padding: '0.75rem', fontWeight: 700, fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase' }}>Size</th>
-                      <th style={{ padding: '0.75rem', fontWeight: 700, fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase' }}>Color</th>
-                      <th style={{ padding: '0.75rem', fontWeight: 700, fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase' }}>Price</th>
-                      <th style={{ padding: '0.75rem', fontWeight: 700, fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase' }}>Stock</th>
-                      <th style={{ padding: '0.75rem', fontWeight: 700, fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', textAlign: 'right' }}>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {formData.variants.map((variant, index) => (
-                      <tr key={index} style={{ borderTop: '1px solid #f1f5f9' }}>
-                        <td style={{ padding: '0.5rem' }}>
-                          <input type="text" placeholder="Size" value={variant.size} onChange={(e) => handleVariantChange(index, 'size', e.target.value)} style={{ width: '100%', padding: '0.5rem', borderRadius: '8px' }} />
-                        </td>
-                        <td style={{ padding: '0.5rem' }}>
-                          <input type="text" placeholder="Color" value={variant.color} onChange={(e) => handleVariantChange(index, 'color', e.target.value)} style={{ width: '100%', padding: '0.5rem', borderRadius: '8px' }} />
-                        </td>
-                        <td style={{ padding: '0.5rem' }}>
-                          <input type="number" min="0" step="0.01" required value={variant.price} onChange={(e) => handleVariantChange(index, 'price', e.target.value)} style={{ width: '100%', padding: '0.5rem', borderRadius: '8px' }} />
-                        </td>
-                        <td style={{ padding: '0.5rem' }}>
-                          <input type="number" min="0" required value={variant.countInStock} onChange={(e) => handleVariantChange(index, 'countInStock', e.target.value)} style={{ width: '100%', padding: '0.5rem', borderRadius: '8px' }} />
-                        </td>
-                        <td style={{ padding: '0.5rem', textAlign: 'right' }}>
-                          <button type="button" onClick={() => removeVariant(index)} style={{ background: '#fee2e2', color: '#991b1b', border: 'none', padding: '0.5rem', borderRadius: '8px', cursor: 'pointer' }}>
-                            <Trash2 size={16} />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className={`${styles.fullWidth}`} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                {formData.variants.map((variant, index) => (
+                  <div key={index} style={{ background: '#fff', padding: '1.25rem', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                      <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#334155' }}>Variant {index + 1}</h4>
+                      <button type="button" onClick={() => removeVariant(index)} style={{ background: '#fee2e2', color: '#991b1b', border: 'none', padding: '0.5rem', borderRadius: '8px', cursor: 'pointer' }}>
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                    
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1rem' }}>
+                      <input type="text" placeholder="Size (e.g. M)" value={variant.size} onChange={(e) => handleVariantChange(index, 'size', e.target.value)} style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #cbd5e1' }} />
+                      {formData.hasColorVariation && (
+                        <input type="text" placeholder="Color (e.g. Red)" value={variant.color} onChange={(e) => handleVariantChange(index, 'color', e.target.value)} style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #cbd5e1' }} />
+                      )}
+                      <input type="number" placeholder="Price" min="0" step="0.01" required value={variant.price} onChange={(e) => handleVariantChange(index, 'price', e.target.value)} style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #cbd5e1' }} />
+                      <input type="number" placeholder="Stock" min="0" required value={variant.countInStock} onChange={(e) => handleVariantChange(index, 'countInStock', e.target.value)} style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #cbd5e1' }} />
+                    </div>
+
+                    {formData.hasColorVariation && (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        <div>
+                          <label style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.25rem', display: 'block' }}>Variant Title</label>
+                          <input type="text" placeholder="e.g. Classic Red Polo" value={variant.name || ''} onChange={(e) => handleVariantChange(index, 'name', e.target.value)} style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #cbd5e1' }} />
+                        </div>
+                        
+                        <div>
+                          <label style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.25rem', display: 'block' }}>Primary Image URL</label>
+                          <div style={{ display: 'flex', gap: '0', height: '40px' }}>
+                            <input type="text" placeholder="https://..." value={variant.image || ''} onChange={(e) => handleVariantChange(index, 'image', e.target.value)} style={{ flex: 1, padding: '0.6rem', borderRadius: '8px', borderTopRightRadius: 0, borderBottomRightRadius: 0, border: '1px solid #cbd5e1', borderRight: 'none', margin: 0 }} />
+                            <div style={{ height: '100%' }}>
+                              <ImageUpload 
+                                onUploadSuccess={(url) => handleVariantPrimaryImageSuccess(index, url)} 
+                                compact={true} 
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.25rem', display: 'block' }}>Additional Image URLs (Newline separated)</label>
+                          <textarea placeholder="https://...&#10;https://..." value={variant.images || ''} onChange={(e) => handleVariantChange(index, 'images', e.target.value)} style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #cbd5e1', minHeight: '60px' }} />
+                          <div style={{ marginTop: '0.5rem' }}>
+                            <ImageUpload 
+                              label="Upload Addl. Images" 
+                              onUploadSuccess={(urls) => handleVariantAdditionalImagesSuccess(index, urls)} 
+                              multiple={true}
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.25rem', display: 'block' }}>Variant Details / Description</label>
+                          <div style={{ border: '1px solid #cbd5e1', borderRadius: '8px', overflow: 'hidden' }}>
+                            <RichTextEditor 
+                              content={variant.description || ''} 
+                              onChange={(html) => handleVariantChange(index, 'description', html)} 
+                              placeholder="Specific details for this color/size..."
+                              token={token}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             )}
             {formData.variants.length === 0 && (
