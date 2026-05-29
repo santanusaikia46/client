@@ -65,12 +65,13 @@ export default async function ProductPageServer({ params }) {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
     const res = await fetch(`${baseUrl}/api/products/${unwrappedParams.id}`, { cache: "no-store" });
-    if (!res.ok) {
-      throw new Error(`Server returned ${res.status}: ${res.statusText}`);
-    }
-    const data = await res.json();
-    if (data.success) {
-      product = data.data;
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success) {
+        product = data.data;
+      }
+    } else {
+      console.warn(`Server returned ${res.status}: ${res.statusText} for product ${unwrappedParams.id}`);
     }
   } catch (error) {
     console.error("Failed to fetch product:", error);
