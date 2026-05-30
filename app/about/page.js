@@ -45,7 +45,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div style={{ position: 'relative', height: '600px', borderRadius: '24px', overflow: 'hidden' }}>
-              <Image src="/designer_silpita.png" alt="Silpita Gogoi - Founder and Designer" fill style={{ objectFit: 'cover' }} />
+              <Image src="https://res.cloudinary.com/dsnsthnae/image/upload/v1780129959/tatiassam/q1bysp8fqjiqmynyptgj.avif" alt="Our Journey" fill style={{ objectFit: 'cover' }} />
             </div>
           </div>
         </section>
@@ -95,7 +95,7 @@ export default function AboutPage() {
             {/* YARNS */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3rem', alignItems: 'center' }}>
               <div style={{ position: 'relative', height: '350px', borderRadius: '16px', overflow: 'hidden' }}>
-                <Image src="/images/yarns.png" alt="Locally sourced, hand-extracted yarns" fill style={{ objectFit: 'cover' }} />
+                <Image src="https://res.cloudinary.com/dsnsthnae/image/upload/v1780129992/tatiassam/ptymjq2vd2qgwli2wgnr.avif" alt="Locally sourced, hand-extracted yarns" fill style={{ objectFit: 'cover' }} />
               </div>
               <div>
                 <h3 style={{ fontSize: '1.5rem', color: '#394B3F', marginBottom: '1rem' }}>YARNS</h3>
@@ -114,14 +114,14 @@ export default function AboutPage() {
                 </p>
               </div>
               <div style={{ position: 'relative', height: '350px', borderRadius: '16px', overflow: 'hidden' }}>
-                <Image src="/images/dyes.png" alt="Natural dyes derived from tree barks, leaves, and fruits" fill style={{ objectFit: 'cover' }} />
+                <Image src="https://res.cloudinary.com/dsnsthnae/image/upload/v1780130022/tatiassam/aefducuc7q6uh3vvqtoh.avif" alt="Natural dyes derived from tree barks, leaves, and fruits" fill style={{ objectFit: 'cover' }} />
               </div>
             </div>
 
             {/* LOOMS */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3rem', alignItems: 'center' }}>
               <div style={{ position: 'relative', height: '350px', borderRadius: '16px', overflow: 'hidden' }}>
-                <Image src="/images/loom.png" alt="Manual throw shuttle loom" fill style={{ objectFit: 'cover' }} />
+                <Image src="https://res.cloudinary.com/dsnsthnae/image/upload/v1780130051/tatiassam/uum7eyjtgym2rhqrp1iv.avif" alt="Manual throw shuttle loom" fill style={{ objectFit: 'cover' }} />
               </div>
               <div>
                 <h3 style={{ fontSize: '1.5rem', color: '#394B3F', marginBottom: '1rem' }}>LOOMS</h3>
@@ -154,7 +154,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div style={{ position: 'relative', height: '500px', borderRadius: '16px', overflow: 'hidden' }}>
-            <Image src="/images/design.png" alt="Contemporary minimalist lens preserving Assamese craftsmanship" fill style={{ objectFit: 'cover' }} />
+            <Image src="https://res.cloudinary.com/dsnsthnae/image/upload/v1780130157/tatiassam/d2vpiczmfbt9a5niugt2.avif" alt="Contemporary minimalist lens preserving Assamese craftsmanship" fill style={{ objectFit: 'cover' }} />
           </div>
         </section>
       </div>
