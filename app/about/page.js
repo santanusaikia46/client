@@ -1,131 +1,162 @@
 import styles from "../info.module.css";
-import Link from "next/link";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
     <main className={styles.page}>
-      {/* ── Hero Section ───────────────────────────────────── */}
       <div className={styles.hero}>
-        <span className={styles.heroBadge}>Heritage & Sustainability</span>
-        <h1>Redefining Tradition for the Modern World</h1>
+        <h1>Welcome to Tati Assam</h1>
         <p className={styles.heroSub}>
-          TatiAssam is a homegrown ethical fashion brand from Assam that blends timeless handloom traditions with contemporary design.
+          If you're here, you're definitely curious about the enchanting journey we are on– and we're thrilled to spill the beans on our journey! No time to waste, let's dive right in and take you on a ride through our story...
         </p>
       </div>
 
       <div className={styles.containerWide}>
-        {/* ── Introduction ────────────────────────────────────── */}
-        <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
-          <p className={styles.prose} style={{ fontSize: '1.25rem', maxWidth: '800px', margin: '0 auto', lineHeight: '1.8' }}>
-            Welcome to <strong>TatiAssam</strong>. Rooted in heritage and driven by sustainability, we create premium handmade textiles and garments for the conscious modern individual.
+        {/* WHO ARE WE? */}
+        <section style={{ marginBottom: '5rem' }}>
+          <h2 className={styles.sectionTitle} style={{ textAlign: 'center' }}>WHO ARE WE?</h2>
+          <p className={styles.prose} style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+            TATI is a homegrown ethical brand weaving stories to redefine traditional values for the new age men and women. We're on a mission to catapult Assam's textile legacy onto the world's fashion landscape while preserving ancient techniques that have stood the test of time. By blending time-honored skills of our ancestors with contemporary design, we're flipping the script on luxury, and redefining it with the touch of tradition, social consciousness and eco-friendliness. Our ultimate goal is to showcase the jaw-dropping beauty, finest qualities of craftmanship and the unique charm of Assam’s handmade textiles while building a socially responsible brand that connects heritage with the future. Behind each Tati garment is a story - of the artisan's craft, the handloom's journey, the inspiration from tradition. Our designs may be contemporary, but our soul is traditional.
           </p>
         </section>
 
-        {/* ── Story & Mission ─────────────────────────────────── */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', marginBottom: '6rem' }}>
+        {/* HOW IT ALL STARTED? */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '3rem', marginBottom: '6rem' }}>
+          <h2 className={styles.sectionTitle} style={{ textAlign: 'center' }}>HOW IT ALL STARTED?</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+            <div>
+              <p className={styles.prose}>
+                I was in 8th standard when I realized that I wanted to go to fashion school... Coming from a small town, something's seemed far from reality back then. The journey from enrolling myself into one and figuring out how to go about it took years of mistakes and lessons and I am still on my learning journey... I went in search of the world outside but the world made me look within. Within my culture, within my values.
+              </p>
+              <br/>
+              <p className={styles.prose}>
+                There was a time I recall feeling lost in fashion school...I pondered upon my quest and purpose of being there. I dragged my ambiguous self to college every day until I was introduced to ethical fashion. I realized how certain age-old cultural practices are ethical enough and how incredibly lucky I am to have such a strong cultural background.
+              </p>
+              <br/>
+              <p className={styles.prose}>
+                Art is a self-expression and individuality is a person's reality. It really helps one find their true self and shapes their perspective. The fashion industry is one of the most progressive industries in the world... It accepts you irrespective of your caste, religion, sexuality, gender, color etc. I spent months thinking about how I could use what I have to work for the benefit of others. There was one thing I was sure of and that was "If I were to invest my time and energy doing something, I would work for the less privileged and give them the benefit of what I have learnt."
+              </p>
+              <br/>
+              <p className={styles.prose}>
+                My roots grounded me to my culture and I came home trying to seek what I had found. Handloom, an age-old tradition in every Assamese household, was last followed by my grandmother in the family. This practice was almost relinquished at home and today I find my purpose in bringing back the same practice. My quest lies in preserving my cultural practice, promoting it and using my abilities to work for the needy.
+              </p>
+              <p className={styles.prose} style={{ fontWeight: 'bold', marginTop: '1.5rem' }}>
+                ⦁ Silpita Gogoi (Founder and Designer)
+              </p>
+            </div>
+            <div style={{ position: 'relative', height: '600px', borderRadius: '24px', overflow: 'hidden' }}>
+              <Image src="/designer_silpita.png" alt="Silpita Gogoi - Founder and Designer" fill style={{ objectFit: 'cover' }} />
+            </div>
+          </div>
+        </section>
+
+        {/* OUR VALUES */}
+        <section style={{ marginBottom: '6rem' }}>
+          <h2 className={styles.sectionTitle} style={{ textAlign: 'center', marginBottom: '4rem' }}>OUR VALUES</h2>
+          
+          {/* SOCIAL RESPONSIBILITY */}
+          <div style={{ marginBottom: '5rem' }}>
+            <h3 style={{ fontSize: '1.8rem', color: '#394B3F', marginBottom: '1.5rem' }}>SOCIAL RESPONSIBILITY</h3>
+            <p className={styles.prose}>
+              When I was studying in fashion school, I had the privilege to learn about the country’s diverse craft and I was almost stunned and surprised to find out that every state in India had a craft of their own centered around the community’s need and choice of art in respect to the availability of resources found in their geographical regions. It was almost as if I was taken through a diverse cultural voyage through slides of presentations and what interestingly stood out to me was how less information was available on northeastern crafts as the information would end in 5-6 slides whereas crafts from other states had an informational with a total of 20-22 slides. There were limited books on the college library on northeastern textiles. Even though it has been researched by many cultural pioneers, it told me a lot about our cultural exposure and recognition of artisans in the wider fashion landscape. That was when my outlook to my own people and craft changed. I was certain about exploring areas of Assam where women were sitting with a generational talent but did not have the exposure to the market. And that required me to go into the most rural parts of the state and train people to try not just new designs but also to challenge their thinking patterns in order to finish a project.
+            </p>
+            <br/>
+            <p className={styles.prose}>
+              Despite possessing unmatched skills honed over generations, these artisans struggled for recognition. Their local markets were dwindling as machine-made textiles gained prominence. Talented female weavers sat idle at home with no work. An entire cultural heritage of our region was slowly fading away. Hence, we make a commitment to traditional artisans by providing a platform for their craft, to women by creating economic opportunity, and to customers by offering thoughtfully designed garments made with organic resources. Our unique focus on ethical production and community empowerment sets us apart from mass-market brands. Our purpose is to showcase the beauty of traditional textiles while creating economic opportunities for skilled but overlooked artisans.
+            </p>
+            <br/>
+            <p className={styles.prose} style={{ fontWeight: '500' }}>
+              We're not just making clothes; we're making commitments. To traditional artisans, we offer a stage for their craft. To women, we create economic opportunities. To clients, we deliver the essence of Assam.
+            </p>
+          </div>
+
+          {/* SUSTAINABILITY */}
           <div>
-            <h2 className={styles.sectionTitle}>Our Story</h2>
+            <h3 style={{ fontSize: '1.8rem', color: '#394B3F', marginBottom: '1.5rem' }}>SUSTAINABILITY</h3>
             <p className={styles.prose}>
-              Founded by <strong>Silpita Gogoi</strong>, TatiAssam was born from a deep desire to preserve Assam’s rich textile heritage while creating meaningful economic opportunities for rural artisans and women weavers.
+              Today, much of sustainable fashion is challenged by a demanding supply chain trend by a fast-paced world and driven by people’s materialistic mindset of never having enough. Our approach to creating exquisite fabrics stands in stark contrast to today’s rapid production cycles. We take you to a slow but organic way of living.
             </p>
+            <br/>
             <p className={styles.prose}>
-              What began as a personal journey of self-discovery evolved into a mission to revive traditional handloom practices that were slowly fading away across Assamese households. Inspired by ethical fashion and cultural identity, we transform indigenous craftsmanship into globally relevant sustainable luxury.
+              A capitalistic mindset is often driven by wanting more but there comes a point when you realize that subtle handmade luxury was what ROYALTIES preferred in ancient times and it was made by the finest set of craftsmen. This very luxury has a value that is unmatched to what we call luxury in the present times.
+            </p>
+            <br/>
+            <p className={styles.prose}>
+              Handloom, in itself, is an ethical and sustainable practice. For centuries, this ethical practice was the cornerstone of fabric production in India, with indigenous communities in Assam weaving with their own hands and using only local resources, free from machinery. It’s both remarkable and humbling that these ancient practices still continue to thrive in the rural corners of Assam today. Our aim is to revive and preserve these time-honored methods. By staying true to the same practices and tools used by artisans of the past, we ensure that our products not only honor the heritage of handloom weaving but also contribute to a more sustainable future. Here’s how we’re redefining luxury with a conscientious touch:
             </p>
           </div>
-          <div style={{ background: '#f7faf8', padding: '2.5rem', borderRadius: '24px' }}>
-            <h2 className={styles.sectionTitle} style={{ marginTop: 0 }}>Our Mission</h2>
-            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {[
-                "Promoting sustainable and ethical fashion",
-                "Supporting rural women artisans and traditional weavers",
-                "Preserving Assamese handloom heritage",
-                "Creating eco-friendly luxury fashion with natural resources",
-                "Bridging traditional craftsmanship with modern design aesthetics"
-              ].map((item, i) => (
-                <li key={i} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', color: '#6b7670', fontSize: '1rem' }}>
-                  <span style={{ color: '#394B3F', fontWeight: 'bold' }}>✓</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        </section>
 
-        {/* ── Core Values ─────────────────────────────────────── */}
+        {/* RAW MATERIALS */}
         <section style={{ marginBottom: '6rem' }}>
-          <h2 className={styles.sectionTitle} style={{ textAlign: 'center', marginBottom: '3rem' }}>Our Core Values</h2>
-          <div className={styles.cardGrid}>
-            <div className={styles.card}>
-              <div className={styles.cardIcon}>🤝</div>
-              <h3>Ethical & Socially Responsible</h3>
-              <p>We collaborate with artisans from remote villages, providing sustainable livelihoods and economic empowerment while preserving endangered textile traditions.</p>
+          <h2 className={styles.sectionTitle} style={{ textAlign: 'center', marginBottom: '4rem' }}>RAW MATERIALS</h2>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '4rem' }}>
+            {/* YARNS */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3rem', alignItems: 'center' }}>
+              <div style={{ position: 'relative', height: '350px', borderRadius: '16px', overflow: 'hidden' }}>
+                <Image src="/images/yarns.png" alt="Locally sourced, hand-extracted yarns" fill style={{ objectFit: 'cover' }} />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1.5rem', color: '#394B3F', marginBottom: '1rem' }}>YARNS</h3>
+                <p className={styles.prose}>
+                  Our mission is rooted in harnessing the beauty of locally sourced, hand-extracted yarns. Currently, we work with Eri fiber, one of three indigenous fibers from the region, alongside Muga and Nooni, which we plan to incorporate in the near future. As machine-made alternatives have become more prevalent, these traditional fibers have grown increasingly rare. To honor their legacy, we embark on a journey through villages, sourcing yarn directly from local artisans. This approach ensures that each piece not only supports craftsmanship but also uplifts the communities that sustain these remarkable resources.
+                </p>
+              </div>
             </div>
-            <div className={styles.card}>
-              <div className={styles.cardIcon}>🌿</div>
-              <h3>Sustainability & Slow Living</h3>
-              <p>In a fast-fashion world, we embrace mindful craftsmanship. Every textile is handwoven with minimal environmental impact and maximal authenticity.</p>
+
+            {/* DYES */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '3rem', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '1.5rem', color: '#394B3F', marginBottom: '1rem' }}>DYES</h3>
+                <p className={styles.prose}>
+                  Blessed with abundant natural resources, our state offers a vibrant palette of local dyes that we incorporate into our fabrics. Historically, local communities used these natural dyes, derived from tree barks, leaves, and fruits, to color their textiles. Each dye brings out unique hues, reflecting the rich, natural beauty of the region.
+                </p>
+              </div>
+              <div style={{ position: 'relative', height: '350px', borderRadius: '16px', overflow: 'hidden' }}>
+                <Image src="/images/dyes.png" alt="Natural dyes derived from tree barks, leaves, and fruits" fill style={{ objectFit: 'cover' }} />
+              </div>
             </div>
-            <div className={styles.card}>
-              <div className={styles.cardIcon}>✨</div>
-              <h3>Artisan Empowerment</h3>
-              <p>By providing direct market access, we ensure that the rhythmic clatter of the loom continues to provide for families across Assam.</p>
+
+            {/* LOOMS */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3rem', alignItems: 'center' }}>
+              <div style={{ position: 'relative', height: '350px', borderRadius: '16px', overflow: 'hidden' }}>
+                <Image src="/images/loom.png" alt="Manual throw shuttle loom" fill style={{ objectFit: 'cover' }} />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1.5rem', color: '#394B3F', marginBottom: '1rem' }}>LOOMS</h3>
+                <p className={styles.prose}>
+                  This is one of the ways we choose to stay unique as a brand. The fabrics woven are made in an ancient loom called the Manual throw shuttle loom. In most areas of Assam, the use of this loom is only limited to the people of the village who still perform weaving as a way of life. Most of these looms are replaced by manual jacquard looms by manufacturers to amplify production speed. The manual throw shuttle loom is an original way of making fabrics in the olden times but also has its own limitations in terms of the design explorations.
+                </p>
+                <br/>
+                <p className={styles.prose}>
+                  While it offers limited design flexibility, our goal is to push its boundaries and explore its full creative potential. This manual loom, with its rich heritage, operates entirely without electricity, reflecting a bygone era of slow living and patience. This dedication to craftsmanship not only makes our fabrics remarkably sustainable but also deeply ethical.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── Sustainable Craftsmanship ────────────────────────── */}
-        <section style={{ marginBottom: '6rem' }}>
-          <h2 className={styles.sectionTitle}>Sustainable Craftsmanship</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginTop: '2rem' }}>
-            <div style={{ borderLeft: '3px solid #394B3F', paddingLeft: '1.5rem' }}>
-              <h3 style={{ fontSize: '1.2rem', color: '#394B3F', marginBottom: '0.75rem' }}>Indigenous Yarns</h3>
-              <p className={styles.prose} style={{ fontSize: '0.95rem' }}>
-                We work with locally sourced fibers such as <strong>Eri Silk</strong>, <strong>Muga Silk</strong>, and <strong>Nooni Fiber</strong>, hand-extracted by local communities.
-              </p>
-            </div>
-            <div style={{ borderLeft: '3px solid #394B3F', paddingLeft: '1.5rem' }}>
-              <h3 style={{ fontSize: '1.2rem', color: '#394B3F', marginBottom: '0.75rem' }}>Natural Dyes</h3>
-              <p className={styles.prose} style={{ fontSize: '0.95rem' }}>
-                Our fabrics are naturally dyed using tree bark, leaves, roots, and fruits, celebrating Assam’s biodiversity while staying eco-friendly.
-              </p>
-            </div>
-            <div style={{ borderLeft: '3px solid #394B3F', paddingLeft: '1.5rem' }}>
-              <h3 style={{ fontSize: '1.2rem', color: '#394B3F', marginBottom: '0.75rem' }}>Handloom Weaving</h3>
-              <p className={styles.prose} style={{ fontSize: '0.95rem' }}>
-                Woven on traditional manual throw shuttle looms that require no electricity, preserving the unique textures of handcrafted beauty.
-              </p>
-            </div>
+        {/* DESIGN */}
+        <section style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '4rem', alignItems: 'center', marginBottom: '4rem' }}>
+          <div>
+            <h2 className={styles.sectionTitle}>DESIGN</h2>
+            <p className={styles.prose}>
+              Assam's rich history is a tapestry of diverse arts and crafts, from intricate tools to exquisite textiles. Amongst these were the art and craftmanship performed on textiles that was much preferred by Royalties. The motifs in Assamese textiles were inspired from the flora and fauna in the region.
+            </p>
+            <br/>
+            <p className={styles.prose}>
+              Our brand reimagines these traditional patterns through a contemporary, minimalist lens, preserving the essence of Assamese craftsmanship while introducing a modern twist. The juxtaposition of traditional motifs with a harmonious palette of colors yield’s the look of a contemporary design aspect. By blending classic motifs with a refined color palette, we create designs that embody subtle luxury.
+            </p>
+            <br/>
+            <p className={styles.prose}>
+              Assamese clothing has mostly been centered around rich traditional garments. Our vision is to elevate this heritage into a high-end ready-to-wear brand that seamlessly merges cultural identity with sustainable fashion. The defining point of our brand is that we strive to offer a new kind of luxury—one that is both timeless and eco-conscious.
+            </p>
+          </div>
+          <div style={{ position: 'relative', height: '500px', borderRadius: '16px', overflow: 'hidden' }}>
+            <Image src="/images/design.png" alt="Contemporary minimalist lens preserving Assamese craftsmanship" fill style={{ objectFit: 'cover' }} />
           </div>
         </section>
-
-        {/* ── Design & Why Us ─────────────────────────────────── */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '4rem', alignItems: 'center' }}>
-          <section>
-            <h2 className={styles.sectionTitle}>Contemporary Assamese Design</h2>
-            <p className={styles.prose}>
-              Our designs reinterpret traditional motifs inspired by regional flora and fauna through a contemporary minimalist lens. By combining heritage-inspired patterns with modern silhouettes, we create timeless ready-to-wear fashion rooted in cultural identity.
-            </p>
-          </section>
-          <section style={{ background: '#394B3F', color: '#fff', padding: '3rem', borderRadius: '24px' }}>
-            <h2 className={styles.sectionTitle} style={{ color: '#fff', marginTop: 0 }}>Why Choose TatiAssam?</h2>
-            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.8rem', fontSize: '0.95rem' }}>
-              {[
-                "Sustainable and ethical fashion brand",
-                "Handmade luxury textiles and garments",
-                "Artisan-made and eco-conscious",
-                "Naturally dyed handwoven fabrics",
-                "Traditional Assamese craftsmanship",
-                "Slow fashion and conscious living",
-                "Contemporary ethnic and modern wear",
-                "Women artisan empowerment"
-              ].map((item, i) => (
-                <li key={i} style={{ display: 'flex', gap: '0.5rem', opacity: 0.9 }}>
-                  • {item}
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
       </div>
     </main>
   );

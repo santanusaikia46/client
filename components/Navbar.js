@@ -47,7 +47,7 @@ export default function Navbar() {
     { label: "Fabric",         href: "/products?category=Fabric" },
     { label: "Home",           href: "/products?category=Home" },
     { label: "Made to order",  href: "/products?category=Made to Order" },
-    { label: "about us",       href: "/about" },
+    { label: "About Us",       href: "/about" },
   ];
 
   return (

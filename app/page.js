@@ -187,18 +187,15 @@ export default function HomePage() {
           playsInline
         />
         <div className={styles.heroContent}>
-          <h1 className={styles.heroHeadline}>
-            Woven by hand.<br />Worn with pride.
-          </h1>
-          <p className={styles.heroSub}>
+          <h1 className={styles.heroSub} style={{ fontSize: '1.8rem', fontWeight: '500' }}>
             Sustainable, organic handloom fabrics, women's clothing, and home decor.
-          </p>
+          </h1>
           <div className={styles.heroActions}>
             <Link href="/products" className={styles.heroCta}>
               Discover Collection
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </Link>
-            <Link href="/about" className={styles.heroSecondary}>Our Story</Link>
+            <Link href="/about" className={styles.heroSecondary}>About us</Link>
           </div>
         </div>
         <div className={styles.scrollHint}><span /></div>
@@ -226,7 +223,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3. OUR STORY (SEO Optimized) ── */}
+      {/* ── 3. ABOUT US (SEO Optimized) ── */}
       <section className={`${styles.heritageSection} reveal`}>
         <div className={styles.heritageGrid}>
           <div className={styles.heritageImgWrap}>
@@ -237,7 +234,7 @@ export default function HomePage() {
             />
           </div>
           <div className={styles.heritageContent}>
-            <p className={styles.sectionEyebrow}>Our Story</p>
+            <p className={styles.sectionEyebrow}>About us</p>
             <h2 className={styles.heritageTitle}>Authentic Assamese Handloom, Direct from Weavers</h2>
 
             <p className={styles.heritageText}>
