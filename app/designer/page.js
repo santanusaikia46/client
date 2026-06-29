@@ -118,7 +118,7 @@ export default function DesignerPage() {
             <img src={images[5]} alt="Gallery 3" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '16px' }} />
             <img src={images[6]} alt="Gallery 4" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '16px', gridColumn: 'span 2' }} />
             <div style={{ gridColumn: 'span 2', background: '#394B3F', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', color: '#fff', textAlign: 'center' }}>
-              <p style={{ fontSize: '1.2rem', fontWeight: '500', fontStyle: 'italic', margin: 0 }}>
+              <p style={{ fontFamily: 'var(--font-aesthetic)', fontSize: '1.25rem', fontStyle: 'italic', margin: 0 }}>
                 "Every Mekhela Chador and Saree is a testament to the resilience and talent of our weavers."
               </p>
             </div>

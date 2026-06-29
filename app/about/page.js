@@ -65,7 +65,7 @@ export default function AboutPage() {
               Despite possessing unmatched skills honed over generations, these artisans struggled for recognition. Their local markets were dwindling as machine-made textiles gained prominence. Talented female weavers sat idle at home with no work. An entire cultural heritage of our region was slowly fading away. Hence, we make a commitment to traditional artisans by providing a platform for their craft, to women by creating economic opportunity, and to customers by offering thoughtfully designed garments made with organic resources. Our unique focus on ethical production and community empowerment sets us apart from mass-market brands. Our purpose is to showcase the beauty of traditional textiles while creating economic opportunities for skilled but overlooked artisans.
             </p>
             <br/>
-            <p className={styles.prose} style={{ fontWeight: '500' }}>
+            <p className={styles.prose} style={{ fontFamily: 'var(--font-aesthetic)', fontSize: '1.2rem', fontStyle: 'italic', color: '#394B3F' }}>
               We're not just making clothes; we're making commitments. To traditional artisans, we offer a stage for their craft. To women, we create economic opportunities. To clients, we deliver the essence of Assam.
             </p>
           </div>
